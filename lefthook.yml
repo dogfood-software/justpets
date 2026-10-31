@@ -1,3 +1,16 @@
+commit-msg:
+  commands:
+    commitlint:
+      only:
+        - ref: main
+      run: pnpm commitlint --edit {1}
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: 🧪 test & check
+      run: pnpm nx run-many -t check test
+
 # EXAMPLE USAGE:
 #
 #   Refer for explanation to following link:

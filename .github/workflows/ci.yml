@@ -1,0 +1,41 @@
+name: 🔄 CI
+
+on:
+  push:
+
+env:
+  ENVIRONMENT: test
+  NODE_ENV: test
+  POSTHOG_PROJECT_TOKEN: ci
+  BETTER_AUTH_SECRET: ci-secret-for-typecheck-only-32chars
+  POLAR_ACCESS_TOKEN: ci
+  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/justpets
+  PUBLIC_URL: http://localhost
+  FONTAWESOME_PACKAGE_TOKEN: ${{ secrets.FONTAWESOME_PACKAGE_TOKEN }}
+  HEROUI_AUTH_TOKEN: ${{ secrets.HEROUI_AUTH_TOKEN }}
+
+jobs:
+  ci:
+    name: Lint, type check, and test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: "package.json"
+          cache: pnpm
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run test and check targets
+        run: pnpm nx run-many -t test check

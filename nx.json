@@ -7,16 +7,12 @@
     ],
     "production": [
       "default",
-      "!{workspaceRoot}/web/**/dist/**",
-      "!{workspaceRoot}/web/**/.tanstack/**",
-      "!{workspaceRoot}/web/**/src/routeTree.gen.ts",
-      "!{workspaceRoot}/mobile/**/.expo/**",
-      "!{workspaceRoot}/mobile/**/dist/**",
-      "!{workspaceRoot}/mobile/**/web-build/**",
-      "!{workspaceRoot}/mobile/**/ios/**",
-      "!{workspaceRoot}/mobile/**/android/**",
-      "!{workspaceRoot}/backend/api/dist/**",
-      "!{workspaceRoot}/backend/db/dist/**",
+      "!{workspaceRoot}/**/dist/**",
+      "!{workspaceRoot}/**/.tanstack/**",
+      "!{workspaceRoot}/**/routeTree.gen.ts",
+      "!{workspaceRoot}/**/.expo/**",
+      "!{workspaceRoot}/**/ios/**",
+      "!{workspaceRoot}/**/android/**",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json"
     ],
@@ -25,7 +21,16 @@
   "targetDefaults": {
     "check": {
       "cache": true,
-      "dependsOn": ["^check"],
+      "dependsOn": [
+        "^check"
+      ],
+      "inputs": [
+        "default",
+        "^default"
+      ]
+    },
+    "test": {
+      "cache": true,
       "inputs": [
         "default",
         "^default"
@@ -65,5 +70,6 @@
       "cache": true
     }
   },
-  "analytics": false
+  "analytics": false,
+  "nxCloudId": "6ae61e29a36523bb6830488a"
 }
