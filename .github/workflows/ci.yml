@@ -4,6 +4,7 @@ on:
   push:
 
 env:
+  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
   ENVIRONMENT: test
   NODE_ENV: test
   POSTHOG_PROJECT_TOKEN: ci
