@@ -1,0 +1,93 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  # Protects the collector from OOMing if traffic spikes or an exporter is slow/down.
+  # Keep this first in every pipeline.
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 400
+    spike_limit_mib: 100
+
+  # Groups spans/metrics into larger batches before export - cheaper on the
+  # network and keeps individual PostHog requests under its 4MB body cap.
+  batch:
+    send_batch_size: 256
+    timeout: 5s
+
+  # PostHog lists traces by root spans. Railway edge/proxy parents never reach
+  # this collector, so router SERVER spans arrive with a missing parent and
+  # those traces disappear. Clear the parent so router becomes the root.
+  # Keep this off the Better Stack / Railway path so edge→router still joins.
+  transform/posthog_reroot_router:
+    error_mode: ignore
+    trace_statements:
+      - context: span
+        statements:
+          - set(span.parent_span_id, SpanID(0x0000000000000000)) where resource.attributes["service.name"] == "router" and span.kind == SPAN_KIND_SERVER
+
+exporters:
+  otlp_http/posthog:
+    traces_endpoint: "https://eu.i.posthog.com/i/v1/traces"
+    metrics_endpoint: "https://eu.i.posthog.com/i/v1/metrics"
+    logs_endpoint: "https://eu.i.posthog.com/i/v1/logs"
+    headers:
+      Authorization: "Bearer ${PH_PROJECT_TOKEN}"
+
+  # Better Stack OTLP ingest — see https://betterstack.com/docs/logs/open-telemetry/
+  # Free tier retains telemetry for 3 days (enough for AI SRE incident response).
+  otlphttp/betterstack:
+    endpoint: "https://${BETTERSTACK_INGESTING_HOST}"
+    headers:
+      Authorization: "Bearer ${BETTERSTACK_SOURCE_TOKEN}"
+    compression: gzip
+
+  # Railway Traces — enable Tracing on this `otel` service so Railway injects
+  # OTEL_EXPORTER_OTLP_ENDPOINT. Traces only; do not add to metrics/logs
+  # pipelines. https://docs.railway.com/observability/tracing
+  #
+  # Railway injects OTEL_EXPORTER_OTLP_HEADERS=x-railway-otel=true (SDK form).
+  # The collector needs that as a header map.
+  otlphttp/railway:
+    # Default allows the collector to start when Tracing is not enabled on
+    # this service (no Railway-injected endpoint). Exports will fail softly
+    # until OTEL_EXPORTER_OTLP_ENDPOINT is present.
+    endpoint: "${env:OTEL_EXPORTER_OTLP_ENDPOINT:-http://127.0.0.1:4318}"
+    compression: gzip
+    headers:
+      x-railway-otel: "true"
+
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+    path: /health
+
+service:
+  extensions: [health_check]
+
+  telemetry:
+    logs:
+      encoding: json
+      output_paths: [stdout]
+
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [otlphttp/betterstack, otlphttp/railway, otlp_http/posthog]
+
+    # Waiting for private alpha to be GA'd
+    metrics:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [otlp_http/posthog, otlphttp/betterstack]
+
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [otlp_http/posthog, otlphttp/betterstack]

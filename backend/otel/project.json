@@ -1,0 +1,13 @@
+{
+  "name": "otel",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "targets": {
+    "check": {
+      "command": "docker run --rm -v \"$PWD/{projectRoot}/otel-config.yaml:/etc/otelcol-contrib/config.yaml:ro,Z\" -e PH_PROJECT_TOKEN=phc_validate -e BETTERSTACK_INGESTING_HOST=in.logs.betterstack.com -e BETTERSTACK_SOURCE_TOKEN=token_validate otel/opentelemetry-collector-contrib:latest validate --config=/etc/otelcol-contrib/config.yaml",
+      "options": {
+        "cwd": "{workspaceRoot}"
+      }
+    }
+  }
+}

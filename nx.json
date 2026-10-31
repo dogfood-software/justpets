@@ -1,0 +1,69 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "production": [
+      "default",
+      "!{workspaceRoot}/web/**/dist/**",
+      "!{workspaceRoot}/web/**/.tanstack/**",
+      "!{workspaceRoot}/web/**/src/routeTree.gen.ts",
+      "!{workspaceRoot}/mobile/**/.expo/**",
+      "!{workspaceRoot}/mobile/**/dist/**",
+      "!{workspaceRoot}/mobile/**/web-build/**",
+      "!{workspaceRoot}/mobile/**/ios/**",
+      "!{workspaceRoot}/mobile/**/android/**",
+      "!{workspaceRoot}/backend/api/dist/**",
+      "!{workspaceRoot}/backend/db/dist/**",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json"
+    ],
+    "sharedGlobals": []
+  },
+  "targetDefaults": {
+    "check": {
+      "cache": true,
+      "dependsOn": ["^check"],
+      "inputs": [
+        "default",
+        "^default"
+      ]
+    },
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "continuous": true
+    },
+    "start": {
+      "dependsOn": [
+        "build"
+      ],
+      "cache": false,
+      "continuous": true
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false
+    },
+    "db:studio": {
+      "cache": false,
+      "continuous": true
+    },
+    "env:generate": {
+      "cache": true
+    }
+  },
+  "analytics": false
+}
