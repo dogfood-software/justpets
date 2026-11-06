@@ -10,6 +10,8 @@ pre-commit:
   jobs:
     - name: 🧪 test & check
       run: pnpm nx run-many -t check test
+      env:
+        NX_TUI: "false"
 
 # EXAMPLE USAGE:
 #

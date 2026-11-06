@@ -7,6 +7,8 @@ packages:
   - web/*
 
 allowBuilds:
+  cpu-features: false
+  ssh2: false
   esbuild: true
   sharp: true
   lefthook: true
@@ -16,24 +18,24 @@ catalogs:
     zod: ^4.6.7
     "@types/bun": ^1.4.4
     varlock: 1.24.0
-    better-auth: 1.7.14
+    better-auth: 1.7.18
     next-themes: ^0.4.6
     sonner: ^2.0.8
     "@tanstack/react-form": ^1.33.5
-    tailwindcss: ^4.3.3
-    "@better-auth/expo": 1.7.14
+    tailwindcss: ^4.3.4
+    "@better-auth/expo": 1.7.18
     drizzle-orm: 1.0.0-rc.5
 
 minimumReleaseAgeExclude:
-  - "@better-auth/core@1.7.13"
-  - "@better-auth/drizzle-adapter@1.7.13"
-  - "@better-auth/kysely-adapter@1.7.13"
-  - "@better-auth/memory-adapter@1.7.13"
-  - "@better-auth/mongo-adapter@1.7.13"
-  - "@better-auth/prisma-adapter@1.7.13"
-  - "@better-auth/telemetry@1.7.13"
-  - better-auth@1.7.13
-  - "@better-auth/expo@1.7.13"
+  - "@better-auth/core@1.7.13 || 1.7.15 || 1.7.18"
+  - "@better-auth/drizzle-adapter@1.7.13 || 1.7.15 || 1.7.18"
+  - "@better-auth/kysely-adapter@1.7.13 || 1.7.15 || 1.7.18"
+  - "@better-auth/memory-adapter@1.7.13 || 1.7.15 || 1.7.18"
+  - "@better-auth/mongo-adapter@1.7.13 || 1.7.15 || 1.7.18"
+  - "@better-auth/prisma-adapter@1.7.13 || 1.7.15 || 1.7.18"
+  - "@better-auth/telemetry@1.7.13 || 1.7.15 || 1.7.18"
+  - better-auth@1.7.13 || 1.7.15 || 1.7.18
+  - "@better-auth/expo@1.7.13 || 1.7.15 || 1.7.18"
   - "@nx/nx-darwin-arm64@24.0.3"
   - "@nx/nx-darwin-x64@24.0.3"
   - "@nx/nx-freebsd-x64@24.0.3"
@@ -45,6 +47,13 @@ minimumReleaseAgeExclude:
   - "@nx/nx-win32-arm64-msvc@24.0.3"
   - "@nx/nx-win32-x64-msvc@24.0.3"
   - nx@24.0.3
+  - "@better-auth/api-key@1.7.18"
+  - "@better-auth/i18n@1.7.18"
+  - "@better-auth/passkey@1.7.18"
+  - "@elysiajs/cors@1.4.3"
+  - "@opentelemetry/core@3.1.0"
+  - "@opentelemetry/resources@3.1.0"
+  - evlog@2.35.1
 
 permissions:
   '@tanstack/devtools-vite':
@@ -54,6 +63,8 @@ permissions:
   '@tanstack/router-plugin':
     skills: true
   drizzle-kit:
+    skills: true
+  payload:
     skills: true
   protobufjs:
     build: true

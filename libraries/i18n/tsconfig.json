@@ -3,7 +3,7 @@
   "compilerOptions": {
     "lib": ["ESNext"],
     "paths": {
-      "@petavia/lib/*": ["./src/*"]
+      "@libraries/i18n/*": ["./src/*"]
     },
     "strictNullChecks": true
   },

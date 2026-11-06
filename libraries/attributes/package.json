@@ -12,7 +12,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@opentelemetry/resources": "^3.0.0"
+    "@opentelemetry/resources": "^3.1.0"
   },
   "devDependencies": {
     "@types/bun": "catalog:",

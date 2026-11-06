@@ -1,0 +1,41 @@
+{
+  "name": "@backend/api",
+  "type": "module",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "tsdown",
+    "env:generate": "varlock codegen",
+    "check": "tsc --noEmit",
+    "compile": "bun build --compile --no-compile-autoload-dotenv --minify --sourcemap --bytecode ./src/index.ts --outfile server",
+    "dev": "NODE_ENV=development bun run --hot src/server.ts",
+    "start": "bun run --no-env-file dist/server.mjs"
+  },
+  "dependencies": {
+    "@backend/db": "workspace:*",
+    "@better-auth/api-key": "^1.7.18",
+    "@better-auth/core": "^1.7.18",
+    "@better-auth/expo": "catalog:",
+    "@better-auth/i18n": "^1.7.18",
+    "@better-auth/passkey": "^1.7.18",
+    "@elysia/openapi": "^1.4.17",
+    "@elysia/opentelemetry": "^1.4.12",
+    "@elysia/server-timing": "^1.4.1",
+    "@elysiajs/cors": "^1.4.3",
+    "@libraries/attributes": "workspace:*",
+    "@libraries/i18n": "workspace:*",
+    "@sinclair/typebox": "^0.34.52",
+    "better-auth": "catalog:",
+    "drizzle-orm": "catalog:",
+    "elysia": "^1.4.31",
+    "evlog": "^2.35.1",
+    "jose": "^6.2.15",
+    "resend": "^6.37.0",
+    "varlock": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/bun": "catalog:",
+    "tsdown": "^0.23.5",
+    "typescript": "^6.0.3"
+  }
+}

@@ -1,0 +1,107 @@
+name: justpets
+
+# include:
+# - ./powersync/compose.yml
+
+services:
+  # mimic production telemetry locally
+  otel:
+    image: grafana/otel-lgtm
+    container_name: justpets-otel
+    restart: unless-stopped
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "9002:3000"
+
+  # mimic production routing locally
+  router:
+    image: caddy:latest
+    container_name: justpets-router
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    command: caddy run --config /etc/caddy/Caddyfile --adapter caddyfile --watch
+    environment:
+      XDG_DATA_HOME: /caddy/data
+      XDG_CONFIG_HOME: /caddy/config
+    volumes:
+      - ./caddy:/etc/caddy
+      - caddy_data:/caddy
+
+  # # local database... TODO branding and/or extensions
+  postgres:
+    image: postgres:18
+    container_name: justpets-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: justpets
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d justpets"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  minio:
+    container_name: justpets-minio
+    image: minio/minio:latest
+    ports:
+      - "9000:9000" # S3 api
+      - "9001:9001" # Web UI
+    environment:
+      MINIO_ROOT_USER: localdev
+      MINIO_ROOT_PASSWORD: localdev123
+      BUCKET_NAME: files
+    entrypoint: sh
+    command: -c "mkdir -p /data/files && minio server /data --console-address ':9001'"
+    volumes:
+      - minio-data:/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: justpets-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes --notify-keyspace-events Exe
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
+  payload-mongo:
+    # 8.0.5+ / 8.2+ crash or refuse to start on Linux kernel 6.19+ (Docker Desktop)
+    # https://jira.mongodb.org/browse/SERVER-121912
+    image: mongo:8.0.4
+    container_name: payload-mongo
+    command: ["--replSet", "rs0", "--bind_ip_all", "--quiet"]
+    healthcheck:
+      test: [ "CMD", "mongosh", "--quiet", "--eval", "try { rs.status().ok } catch (e) { rs.initiate({_id:'rs0', members:[{_id:0, host:'localhost:27017'}]}) }" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
+    ports:
+      - "27018:27017"
+    volumes:
+      - payload-data:/data/db
+
+volumes:
+  caddy_data:
+  postgres_data:
+  minio-data:
+  redis-data:
+  payload-data:

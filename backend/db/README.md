@@ -1,0 +1,3 @@
+Run `pnpm --filter @backend/db test` from the repository root to test migrations end to end. Docker must be running, with access to pull `postgres:18` on the first run.
+
+The test uses the Testcontainers PostgreSQL module to start a fresh PostgreSQL instance on a dynamically assigned port. It runs the package's `db:migrate` command, checks the migration journal and database behavior, then runs migrations again to verify that existing data survives and migrations are not reapplied. The container and its volumes are removed after the test, including on failure. The test supplies its own database URL.

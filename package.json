@@ -5,13 +5,15 @@
   "author": "Dogfood Software LLC",
   "scripts": {
     "check": "pnpm nx run-many -t check",
-    "test": "pnpm nx run-many -t test"
+    "test": "pnpm nx run-many -t test",
+    "db:migrate": "pnpm --filter @backend/db db:migrate",
+    "services:up": "docker compose -f ./dev/compose.yml up -d"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
     "lefthook": "^2.2.2",
-    "nx": "^24.0.3",
+    "nx": "^24.0.4",
     "typescript": "^6.0.3"
   },
   "devEngines": {
