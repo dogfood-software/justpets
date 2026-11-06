@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://petavia.app" target="_blank">
+<a href="https://justpets.app" target="_blank">
     <img src="./assets/wordmark.svg" height="60px" style="margin-bottom: 1rem">
 </a>
 
@@ -14,7 +14,7 @@
 >
 > This is a WIP and pre-release software. This ReadMe will be filled out as the project is built
 
-Petavia is a software platform for managing pets. From Breeding or Adoption, to Training, Healthcare and death. The entire product is, as much as possible, contained within this monorepo.
+JustPets is a software platform for managing pets. From Breeding or Adoption, to Training, Healthcare and death. The entire product is, as much as possible, contained within this monorepo.
 
 ---
 
