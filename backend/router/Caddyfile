@@ -1,0 +1,70 @@
+{
+	log {
+		output stdout
+		format json
+		level INFO
+	}
+
+	# Wait for PostHog to support
+	metrics {
+		otlp
+	}
+
+	admin off
+	persist_config off
+	auto_https off
+
+	servers {
+		trusted_proxies static private_ranges 100.0.0.0/8
+		client_ip_headers X-Forwarded-For X-Real-IP
+	}
+}
+
+:80 {
+	log
+	tracing {
+		span {http.request.method}
+		span_attributes {
+			client.address {client_ip}
+			url.path {http.request.uri.path}
+			url.query {http.request.uri.query}
+			http.request.header.sec-gpc {http.request.header.Sec-GPC}
+			http.request.header.dnt {http.request.header.Dnt}
+			railway.edge {http.request.header.X-Railway-Edge}
+			railway.request-id {http.request.header.X-Railway-Request-Id}
+		}
+	}
+
+	@malformed_action {
+		method POST
+		header next-action *
+		not {
+			header_regexp next-action "^[0-9a-f]{42}$"
+		}
+	}
+
+	respond @malformed_action "Bad Request" 400
+
+	handle /api/* {
+		encode zstd gzip
+		reverse_proxy http://{$API_PRIVATE_DOMAIN:api.railway.internal}:{$API_PORT:8080}
+	}
+
+	handle_path /staff* {
+		encode zstd gzip
+		reverse_proxy http://{$WEB_PRIVATE_DOMAIN:web.railway.internal}:{$WEB_PORT:8080}
+	}
+
+	handle {
+		reverse_proxy http://{$PUBLIC_PRIVATE_DOMAIN:public.railway.internal}:{$PUBLIC_PORT:4040} {
+			# include the real ip header
+			header_up X-Real-IP {client_ip}
+			# Disable buffering for streaming
+			flush_interval -1
+		}
+
+		header {
+			X-Accel-Buffering "no"
+		}
+	}
+}

@@ -1,8 +1,6 @@
 commit-msg:
   commands:
     commitlint:
-      only:
-        - ref: main
       run: pnpm commitlint --edit {1}
 
 pre-commit:
