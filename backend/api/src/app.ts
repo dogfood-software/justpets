@@ -11,7 +11,7 @@ import { healthPaths } from "./modules/health";
 // Create the Elysia app
 export const app = new Elysia({ nativeStaticResponse: false, prefix: "/api" })
   .headers({
-    "X-API-Deployment": env.DEPLOYMENT_ID || "unknown",
+    "X-API-Deployment": env.RAILWAY_DEPLOYMENT_ID || env.DEPLOYMENT_ID || "unknown",
     "X-API-Version": VERSION,
   })
   .use(serverTiming())

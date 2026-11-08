@@ -2,13 +2,14 @@
 import { env } from "./services/env";
 import { initLogger, log } from "evlog";
 import { VERSION } from "./utils/constants";
+import os from "node:os";
 
 initLogger({
   env: { service: "api" },
   pretty: env.NODE_ENV === "development",
 });
 
-const port = Number(process.env.PORT) || 4041;
+const port = env.PORT;
 
 // Create the Elysia app
 import { app } from "./app";
@@ -23,6 +24,7 @@ app.listen({ hostname: "0.0.0.0", idleTimeout: env.IDLE_TIMEOUT, port }, () => {
     semver: VERSION,
     env: env.NODE_ENV,
     deploymentId: env.DEPLOYMENT_ID,
+    availableParallelism: os.availableParallelism(),
   });
 });
 

@@ -1,8 +1,5 @@
 import { defineConfig } from "tsdown";
 
-const isClientDependency = (id: string) =>
-  /^(?:@elysia\/eden|elysia)(?:\/|$)/.test(id);
-
 export default defineConfig([
   {
     name: "server",
@@ -13,7 +10,7 @@ export default defineConfig([
     dts: true,
     sourcemap: true,
     deps: {
-      alwaysBundle: [/@libraries\/.*/, /@packages\/.*/],
+      alwaysBundle: [/@backend\/.*/, /@libraries\/.*/, /@packages\/.*/],
     },
   }
 ]);
