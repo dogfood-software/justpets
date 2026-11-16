@@ -8,6 +8,7 @@
     "./*": "./src/*.ts"
   },
   "scripts": {
+    "build:migrations": "rm -rf dist && bun build ./src/migrate.ts --target=bun --minify-whitespace --minify-syntax --sourcemap --outdir ./dist && cp -R src/migrations dist/migrations",
     "test": "vitest run",
     "check": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",

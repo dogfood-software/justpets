@@ -22,7 +22,8 @@ COPY backend/db/src/ ./backend/db/src/
 COPY libraries/attributes/src/ ./libraries/attributes/src/
 COPY libraries/i18n/src/ ./libraries/i18n/src/
 
-RUN pnpm --filter @backend/api build
+RUN pnpm --filter @backend/api build \
+    && pnpm --filter @backend/db build:migrations
 
 FROM oven/bun:alpine
 
@@ -34,6 +35,7 @@ ENV NODE_ENV=production \
     PORT=4041
 
 COPY --from=build --chown=bun:bun /app/backend/api/dist/ ./dist/
+COPY --from=build --chown=bun:bun /app/backend/db/dist/ ./dist/
 
 USER bun
 
