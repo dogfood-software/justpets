@@ -29,9 +29,7 @@ COPY libraries/i18n/package.json ./libraries/i18n/package.json
 ARG FONTAWESOME_PACKAGE_TOKEN
 
 # Store only the env reference in npm config, never the token itself.
-RUN --mount=type=secret,id=FONTAWESOME_PACKAGE_TOKEN,env=FONTAWESOME_PACKAGE_TOKEN \
-    : "${FONTAWESOME_PACKAGE_TOKEN:?Pass --secret id=FONTAWESOME_PACKAGE_TOKEN,env=FONTAWESOME_PACKAGE_TOKEN or set the Railway service variable}" \
-    && pnpm config set '//npm.fontawesome.com/:_authToken' '${FONTAWESOME_PACKAGE_TOKEN}' \
+RUN pnpm config set '//npm.fontawesome.com/:_authToken' '${FONTAWESOME_PACKAGE_TOKEN}' \
     && pnpm --filter @web/site... install --frozen-lockfile \
     && pnpm config delete '//npm.fontawesome.com/:_authToken'
 
