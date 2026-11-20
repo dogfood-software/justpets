@@ -1,0 +1,16 @@
+# Docker builds use the repository root as their context.
+.git
+.agents
+.codex
+.aws
+**/node_modules
+**/.next
+**/dist
+**/build
+**/coverage
+**/.cache
+**/.nx
+**/.env*
+**/*.tsbuildinfo
+**/*.log
+**/.DS_Store

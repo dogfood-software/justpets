@@ -60,6 +60,7 @@ const translations = {
 
 export function createAuth(db: Database) {
   return betterAuth({
+    appName: "justpets",
     // Deployed URL, used for things like callbacks
     baseURL: env.BETTER_AUTH_URL,
     // Secret used for signing cookies
@@ -91,7 +92,7 @@ export function createAuth(db: Database) {
         // users can sign in with multiple options
         enabled: true,
         // We trust these providers
-        trustedProviders: ["apple", "google", "facebook", "discord"],
+        trustedProviders: ["apple", "google", "facebook"],
         // Linking an account does not auto-update their information
         updateUserInfoOnLink: false,
       },

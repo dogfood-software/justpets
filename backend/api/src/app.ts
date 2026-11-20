@@ -22,8 +22,8 @@ export const app = new Elysia({ nativeStaticResponse: false, prefix: "/api" })
   .use(healthPaths);
 
 export type App = typeof app;
-// export type {
-//   ActiveOrganization,
-//   Organization,
-//   Session,
-// } from "./modules/auth";
+export type {
+  ActiveOrganization,
+  Organization,
+  Session,
+} from "./services/auth";

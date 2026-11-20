@@ -10,7 +10,9 @@ justpets.localhost {
 		reverse_proxy host.docker.internal:4041
 	}
 
-	handle /app* {
+	@app path /app /app/*
+	handle @app {
+		# uri strip_prefix /app
 		reverse_proxy host.docker.internal:4042
 	}
 

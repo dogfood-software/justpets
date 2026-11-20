@@ -1,0 +1,5 @@
+@import "@web/ui/globals.css";
+
+/* @import "@c15t/nextjs/styles.css"; */
+
+@source "../**/*.{ts,tsx}";

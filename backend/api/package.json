@@ -2,6 +2,11 @@
   "name": "@backend/api",
   "type": "module",
   "version": "0.0.0",
+  "exports": {
+    "./*": {
+      "types": "./src/*.ts"
+    }
+  },
   "scripts": {
     "build": "rm -rf dist && bun build ./src/server.ts --target=bun --minify-whitespace --minify-syntax --sourcemap --outdir ./dist",
     "check": "tsc --noEmit",

@@ -1,0 +1,94 @@
+/* GDPR Compliant Fonts */
+@import "./fonts.css";
+
+@import "tailwindcss";
+@import "@heroui/styles";
+/* @import "@heroui-pro/react/css"; */
+@import "@fortawesome/fontawesome-svg-core/styles.css" layer(base);
+
+@source "./**/*.{ts,tsx}";
+
+@plugin "@tailwindcss/typography";
+
+@view-transition {
+  navigation: auto;
+}
+
+@theme {
+  --color-accent: var(--accent, oklch(53% 0.1219 151.51));
+}
+
+/* Font Awesome Primary Color */
+/* :root {
+  --fa-primary-color: light-dark(var(--color-primary), var(--color-primary));
+  --fa-secondary-color: light-dark(var(--color-primary), var(--color-primary));
+  --fa-secondary-opacity: 0.5;
+
+  .button--primary {
+    --fa-primary-color: white;
+    --fa-secondary-color: #d9e8d3;
+  }
+} */
+
+/*
+ * HeroUI Pro Theme
+ * Add this to your globals.css after importing @heroui/styles
+ * Only includes variables customized from the selected theme
+ * @see https://heroui.com/docs/react/getting-started/theming
+ */
+:root,
+.light,
+.default,
+[data-theme="light"],
+[data-theme="default"],
+.dark,
+[data-theme="dark"] {
+  /* Border Radius */
+  --field-radius: 1rem;
+
+  /* Font */
+  --font-sans: "Sn Pro Variable", "Fredoka Variable", sans-serif;
+}
+
+:root,
+.light,
+.default,
+[data-theme="light"],
+[data-theme="default"] {
+  /* Theme Colors */
+  --background: oklch(97.02% 0.002 151.51);
+  --muted: oklch(55.17% 0.004 151.51);
+  --scrollbar: oklch(87.1% 0.002 151.51);
+  --surface-secondary: oklch(95.24% 0.003 151.51);
+  --surface-tertiary: oklch(93.73% 0.003 151.51);
+  --default: oklch(94% 0.002 151.51);
+  --accent: oklch(53% 0.1219 151.51);
+  --success: oklch(73.29% 0.1943 138.53);
+  --warning: oklch(78.19% 0.1591 60.05);
+  --danger: oklch(65.32% 0.2337 13.46);
+  --field-border: oklch(90% 0.002 151.51);
+  --border: oklch(90% 0.002 151.51);
+  --separator: oklch(92% 0.002 151.51);
+}
+
+.dark,
+[data-theme="dark"] {
+  --background: oklch(12% 0.002 151.51);
+  --muted: oklch(70.5% 0.004 151.51);
+  --scrollbar: oklch(70.5% 0.002 151.51);
+  --surface: oklch(21.03% 0.004 151.51);
+  --surface-secondary: oklch(25.7% 0.003 151.51);
+  --surface-tertiary: oklch(27.21% 0.003 151.51);
+  --overlay: oklch(21.03% 0.004 151.51);
+  --default: oklch(27.4% 0.002 151.51);
+  --accent: oklch(53% 0.1219 151.51);
+  --success: oklch(73.29% 0.1943 138.53);
+  --warning: oklch(82.03% 0.1394 64.06);
+  --danger: oklch(59.4% 0.1975 12.35);
+  --field-background: oklch(21.03% 0.004 151.51);
+  --field-border: oklch(28% 0.002 151.51);
+  --segment: oklch(39.64% 0.002 151.51);
+  --border: oklch(28% 0.002 151.51);
+  --separator: oklch(25% 0.002 151.51);
+  color-scheme: dark;
+}

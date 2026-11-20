@@ -95,7 +95,7 @@ services:
       start_period: 10s
     restart: unless-stopped
     ports:
-      - "27018:27017"
+      - "27017:27017"
     volumes:
       - payload-data:/data/db
 

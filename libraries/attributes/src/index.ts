@@ -75,3 +75,15 @@ export function railwayOtelResourceAttributes(
   }
   return out;
 }
+
+/** Helper function to use the same log keys for errors in this project */
+export function errorAttributes(error: Error | unknown) {
+  const err = error instanceof Error ? error : undefined;
+  return {
+    "exception.message": err?.message ?? String(error),
+    "exception.stacktrace": err?.stack,
+    "exception.type": err?.name,
+    // can be overridden with the message property, but defaults to the error title
+    msg: err?.message ?? String(error),
+  };
+}
