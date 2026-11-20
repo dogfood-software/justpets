@@ -13,7 +13,7 @@ COPY backend/db/package.json ./backend/db/package.json
 COPY libraries/attributes/package.json ./libraries/attributes/package.json
 COPY libraries/i18n/package.json ./libraries/i18n/package.json
 
-RUN pnpm --filter @backend/api... install --frozen-lockfile --ignore-scripts
+RUN pnpm --filter @backend/api... install --frozen-lockfile --ignore-scripts --trust-lockfile
 
 COPY tsconfig.base.json ./
 COPY backend/api/tsconfig.json ./backend/api/tsconfig.json
