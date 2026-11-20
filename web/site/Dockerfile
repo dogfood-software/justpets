@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Build from the repository root with FONTAWESOME_PACKAGE_TOKEN in your environment:
-# docker build --secret id=FONTAWESOME_PACKAGE_TOKEN,env=FONTAWESOME_PACKAGE_TOKEN -f web/site/Dockerfile .
+# docker build --build-arg FONTAWESOME_PACKAGE_TOKEN -f web/site/Dockerfile .
 # Railway: keep the repository root as the build context and set
 # RAILWAY_DOCKERFILE_PATH=web/site/Dockerfile and FONTAWESOME_PACKAGE_TOKEN.
 
@@ -24,12 +24,12 @@ COPY web/ui/package.json ./web/ui/package.json
 COPY libraries/attributes/package.json ./libraries/attributes/package.json
 COPY libraries/i18n/package.json ./libraries/i18n/package.json
 
-# Railway requires ARG for build variables; local builds should use --secret.
-# The secret mount overrides this fallback when supplied.
+# Railway exposes build variables through ARG and only supports cache mounts.
 ARG FONTAWESOME_PACKAGE_TOKEN
 
 # Store only the env reference in npm config, never the token itself.
-RUN pnpm config set '//npm.fontawesome.com/:_authToken' '${FONTAWESOME_PACKAGE_TOKEN}' \
+RUN : "${FONTAWESOME_PACKAGE_TOKEN:?Pass --build-arg FONTAWESOME_PACKAGE_TOKEN or set the Railway service variable}" \
+    && pnpm config set '//npm.fontawesome.com/:_authToken' '${FONTAWESOME_PACKAGE_TOKEN}' \
     && pnpm --filter @web/site... install --frozen-lockfile \
     && pnpm config delete '//npm.fontawesome.com/:_authToken'
 

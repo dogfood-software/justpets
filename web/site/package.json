@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" payload build",
-    "build:docker": "docker build --secret id=FONTAWESOME_PACKAGE_TOKEN,env=FONTAWESOME_PACKAGE_TOKEN --progress=plain -t justpets-site:dockerfile-check -f web/site/Dockerfile .",
+    "build:docker": "docker build --build-arg FONTAWESOME_PACKAGE_TOKEN --progress=plain -t justpets-site:dockerfile-check -f web/site/Dockerfile .",
     "dev": "rm -rf .next && next dev -p 4040",
     "generate": "payload generate:importmap && payload generate:types",
     "lint": "eslint .",
