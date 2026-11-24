@@ -5,7 +5,7 @@
 # Railway: keep the repository root as the build context and set
 # RAILWAY_DOCKERFILE_PATH=web/site/Dockerfile and FONTAWESOME_PACKAGE_TOKEN.
 
-FROM node:26.13.1-alpine AS base
+FROM node:26-alpine AS base
 
 RUN apk add --no-cache gcompat
 WORKDIR /app
@@ -14,22 +14,18 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 FROM base AS deps
 
-RUN npm install --global pnpm@12.21.0 --ignore-scripts
+# install PNPM
+COPY --from=ghcr.io/pnpm/pnpm:12-alpine /opt/pnpm /opt/pnpm
+RUN for bin in pnpm pn pnpx pnx; do ln -s "/opt/pnpm/$bin" "/usr/local/bin/$bin"; done
 
 COPY .npmrc package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY backend/api/package.json ./backend/api/package.json
-COPY backend/db/package.json ./backend/db/package.json
-COPY web/site/package.json ./web/site/package.json
-COPY web/ui/package.json ./web/ui/package.json
-COPY libraries/attributes/package.json ./libraries/attributes/package.json
-COPY libraries/i18n/package.json ./libraries/i18n/package.json
+COPY --parents ./**/package.json ./
 
 # Railway exposes build variables through ARG and only supports cache mounts.
 ARG FONTAWESOME_PACKAGE_TOKEN
 
 # Store only the env reference in npm config, never the token itself.
-RUN : "${FONTAWESOME_PACKAGE_TOKEN:?Pass --build-arg FONTAWESOME_PACKAGE_TOKEN or set the Railway service variable}" \
-    && pnpm config set '//npm.fontawesome.com/:_authToken' '${FONTAWESOME_PACKAGE_TOKEN}' \
+RUN pnpm config set '//npm.fontawesome.com/:_authToken' '${FONTAWESOME_PACKAGE_TOKEN}' \
     && pnpm --filter @web/site... install --frozen-lockfile \
     && pnpm config delete '//npm.fontawesome.com/:_authToken'
 

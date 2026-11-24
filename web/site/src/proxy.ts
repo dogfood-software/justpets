@@ -20,7 +20,7 @@ export const config = {
   // You may need to adjust it to ignore static assets in `/public` folder
   matcher: [
     // ignore `/_next`, `_vercel`, `_betterstack` and any paths with a `.` in them
-    '/((?!(?:api|app)(?:/|$)|_next|_vercel|_betterstack|payload|.*\\..*).*)',
+    '/((?!(?:app|payload)(?:/|$)|_next|_vercel|_betterstack|payload|.*\\..*).*)',
 
     // include docs paths with a . in them such as docs/og/image.png or docs/llms.txt
     // "/([\\w-]+)?/docs/(.+)",

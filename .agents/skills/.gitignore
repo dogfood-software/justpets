@@ -1,4 +1,9 @@
 # pnpm
+/devtools-vite-plugin
 /drizzle
+/migrate-from-react-router
 /payload
+/react-router
+/router-plugin
+/router-query
 # pnpm end

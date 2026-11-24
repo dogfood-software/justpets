@@ -10,6 +10,11 @@ pre-commit:
       run: pnpm nx run-many -t check test
       env:
         NX_TUI: "false"
+    - name: 🎨 format
+      run: pnpm nx run-many -t format
+      stage_fixed: true
+      env:
+        NX_TUI: "false"
 
 # EXAMPLE USAGE:
 #
