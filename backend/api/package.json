@@ -10,16 +10,16 @@
   "scripts": {
     "build": "rm -rf dist && bun build ./src/server.ts --target=bun --minify-whitespace --minify-syntax --sourcemap --outdir ./dist",
     "check": "tsc --noEmit",
-    "dev": "NODE_ENV=development bun run --hot src/server.ts",
+    "dev": "NODE_ENV=development bun run --watch src/server.ts",
     "start": "bun ./dist/server.js"
   },
   "dependencies": {
     "@backend/db": "workspace:*",
-    "@better-auth/api-key": "^1.7.18",
-    "@better-auth/core": "^1.7.18",
+    "@better-auth/api-key": "^1.7.27",
+    "@better-auth/core": "^1.7.27",
     "@better-auth/expo": "catalog:",
-    "@better-auth/i18n": "^1.7.18",
-    "@better-auth/passkey": "^1.7.18",
+    "@better-auth/i18n": "^1.7.27",
+    "@better-auth/passkey": "^1.7.27",
     "@elysia/openapi": "^1.4.17",
     "@elysia/opentelemetry": "^1.4.12",
     "@elysia/server-timing": "^1.4.1",
@@ -31,9 +31,9 @@
     "better-auth": "catalog:",
     "drizzle-orm": "catalog:",
     "elysia": "^1.4.31",
-    "evlog": "^2.35.1",
-    "jose": "^6.2.15",
-    "resend": "^6.37.0",
+    "evlog": "^2.36.0",
+    "jose": "^6.2.18",
+    "resend": "^6.39.0",
     "zod": "catalog:"
   },
   "devDependencies": {

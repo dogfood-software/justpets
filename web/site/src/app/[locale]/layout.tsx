@@ -17,10 +17,10 @@ export async function generateMetadata({ params }: PageProps<'/[locale]'>): Prom
 
   return {
     title: {
-      default: "JustPets",
-      template: "%s | JustPets"
+      default: 'JustPets',
+      template: '%s | JustPets',
     },
-    robots: { index: false, follow: false }
+    robots: { index: false, follow: false },
   }
 }
 

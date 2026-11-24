@@ -241,7 +241,7 @@ export function createAuth(db: Database) {
 
       // OAuth Proxy so that we can use our OAuth apps in any environment
       oAuthProxy({
-        productionURL: "https://alpha.justpets.app",
+        productionURL: env.OAUTH_PROXY_URL,
         secret: env.OAUTH_PROXY_SECRET,
       }),
 

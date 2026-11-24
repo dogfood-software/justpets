@@ -28,6 +28,7 @@ export const env = createEnv({
     // Better Auth Config
     BETTER_AUTH_SECRET: z.string().min(32),
     BETTER_AUTH_URL: z.url().default("https://justpets.localhost"),
+    OAUTH_PROXY_URL: z.url().default("https://alpha.justpets.app"),
     OAUTH_PROXY_SECRET: z.string().min(1),
     // SSO Providers
     APPLE_CLIENT_ID: z.string().min(1).default("app.justpets.service-id"),

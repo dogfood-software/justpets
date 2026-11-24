@@ -49,11 +49,11 @@ const getBetterAuthSession = cache(async function getBetterAuthSession(): Promis
 
   // Skip the network hop when we don't need it
   if (
-  !cookies.has('justpets.session_token') && // browser cookie present
-  !headers.has('Authorization') // API Key/OAuth Token (MCP & Rest API)
-) {
-  return null
-}
+    !cookies.has('justpets.session_token') && // browser cookie present
+    !headers.has('Authorization') // API Key/OAuth Token (MCP & Rest API)
+  ) {
+    return null
+  }
 
   // call the API over the local network which pulls the session from Redis/PostGres
   const response = await fetch(`${baseUrl}/api/auth/get-session`, {
