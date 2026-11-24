@@ -4,7 +4,6 @@ import type { NextConfig } from 'next'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import createNextIntlPlugin from 'next-intl/plugin'
-import { destination } from 'pino'
 
 // import { createRequire } from "node:module";
 // import { PHASE_PRODUCTION_BUILD } from "next/constants.js";
@@ -80,23 +79,6 @@ const nextConfig = (_phase: string): NextConfig => ({
   turbopack: {
     root: path.resolve(dirname, '../../'),
   },
-
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: "/api/:path*",
-  //       destination: `${env.API_SERVER_URL}/api/:path*` // Proxy to Backend
-  //     },
-  //     {
-  //       source: "/app/:path*",
-  //       destination: `${env.APP_SERVER_URL}/:path*` // Proxy to Backend
-  //     }
-  //   ]
-  // },
-
-  // redirects: [
-  //   { source: "/api", destination: }
-  // ]
 })
 
 // eslint-disable-next-line import/no-anonymous-default-export
