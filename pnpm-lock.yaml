@@ -357,6 +357,12 @@ importers:
 
   web/app:
     dependencies:
+      '@formatjs/intl-localematcher':
+        specifier: ^0.10.1
+        version: 0.10.1
+      '@libraries/i18n':
+        specifier: workspace:*
+        version: link:../../libraries/i18n
       '@tailwindcss/vite':
         specifier: ^4.3.5
         version: 4.3.5(vite@8.3.8(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(tsx@4.23.15)(yaml@2.9.1))
@@ -369,6 +375,9 @@ importers:
       '@tanstack/react-router-devtools':
         specifier: 1.167.4
         version: 1.167.4(@tanstack/react-router@1.170.46(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@tanstack/router-core@1.171.39)(csstype@3.2.3)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@web/ui':
+        specifier: workspace:*
+        version: link:../ui
       react:
         specifier: ^19.3.1
         version: 19.3.1
@@ -378,6 +387,9 @@ importers:
       tailwindcss:
         specifier: ^4.3.5
         version: 4.3.5
+      use-intl:
+        specifier: ^4.15.1
+        version: 4.15.1(@types/react@19.3.0)(react@19.3.1)
     devDependencies:
       '@tanstack/devtools-vite':
         specifier: 0.8.7
@@ -1501,6 +1513,9 @@ packages:
 
   '@formatjs/icu-skeleton-parser@2.1.13':
     resolution: {integrity: sha512-IdAJ9NrHn7AF0zqncD9UpxQozTYyJtbwwrZnJMEKVxTcOOXtVkUb2XYTpNOGTAv58NCsk0rjRB9G+i2SvBmGAQ==}
+
+  '@formatjs/intl-localematcher@0.10.1':
+    resolution: {integrity: sha512-gBqglQK9rXuHsLmM8wzTMBy4Xo4d0jamirIVKuEL8F1rwbskWdpMA1kZarSkny+uvr5q/K6GSzE0Rcq1wZLl3g==}
 
   '@formatjs/intl-localematcher@0.8.14':
     resolution: {integrity: sha512-8O7V38QmbB11+ryJ3KM/znrzXtiqgpXzqNoqDsndHZZ5/zDKTTL+cf5F0mzXkQEwhx8IlWnqYvEovf2S5EwLTw==}
@@ -9553,6 +9568,10 @@ snapshots:
       '@formatjs/icu-skeleton-parser': 2.1.13
 
   '@formatjs/icu-skeleton-parser@2.1.13': {}
+
+  '@formatjs/intl-localematcher@0.10.1':
+    dependencies:
+      '@formatjs/fast-memoize': 3.1.7
 
   '@formatjs/intl-localematcher@0.8.14':
     dependencies:

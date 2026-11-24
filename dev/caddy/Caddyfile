@@ -10,7 +10,8 @@ justpets.localhost {
 		reverse_proxy host.docker.internal:4041
 	}
 
-	@app path /app /app/*
+	# __tsd is Tanstack Console piping
+	@app path /app /app/* /__tsd*
 	handle @app {
 		# uri strip_prefix /app
 		reverse_proxy host.docker.internal:4042
