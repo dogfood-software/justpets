@@ -54,7 +54,7 @@
 	handle @app {
 		uri strip_prefix /app
 		encode zstd gzip
-		reverse_proxy http://{$WEB_PRIVATE_DOMAIN:web.railway.internal}:{$WEB_PORT:8080}
+		reverse_proxy http://{$APP_PRIVATE_DOMAIN:app.railway.internal}:{$APP_PORT:8080}
 	}
 
 	handle {
