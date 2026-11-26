@@ -1,18 +1,16 @@
-"use client";
+'use client'
 
-import { Checkbox, Description, FieldError } from "@heroui/react";
-import { useFieldContext } from "./context";
-import { getError } from "./get-error";
+import { Checkbox, Description, FieldError } from '@heroui/react'
+import { useFieldContext } from './context'
+import { getError } from './get-error'
 
 export function CheckboxField({
   label,
   description,
   ...props
-}: { label: string; description?: string } & React.ComponentProps<
-  typeof Checkbox
->) {
-  const field = useFieldContext<boolean>();
-  const error = getError(field);
+}: { label: string; description?: string } & React.ComponentProps<typeof Checkbox>) {
+  const field = useFieldContext<boolean>()
+  const error = getError(field)
   return (
     <Checkbox
       isSelected={field.state.value}
@@ -27,7 +25,7 @@ export function CheckboxField({
         {label} {/* plain text — the clickable label + accessible name */}
       </Checkbox.Content>
       {!!description && <Description>{description}</Description>}
-      {typeof error === "string" && <FieldError>{error}</FieldError>}
+      {typeof error === 'string' && <FieldError>{error}</FieldError>}
     </Checkbox>
-  );
+  )
 }

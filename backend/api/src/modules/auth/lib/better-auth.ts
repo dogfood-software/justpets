@@ -1,13 +1,13 @@
-import { log } from "evlog";
+import { log } from 'evlog'
 // Core
-import type { Logger } from "better-auth";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { betterAuth } from "better-auth/minimal"; // don't bother with Keysley
+import type { Logger } from 'better-auth'
+import { drizzleAdapter } from 'better-auth/adapters/drizzle'
+import { betterAuth } from 'better-auth/minimal' // don't bother with Keysley
 // Plugins
-import { apiKey } from "@better-auth/api-key";
-import { expo } from "@better-auth/expo";
-import { i18n, locales, type TranslationDictionary } from "@better-auth/i18n";
-import { passkey } from "@better-auth/passkey";
+import { apiKey } from '@better-auth/api-key'
+import { expo } from '@better-auth/expo'
+import { i18n, locales, type TranslationDictionary } from '@better-auth/i18n'
+import { passkey } from '@better-auth/passkey'
 import {
   // type DefaultOrganizationPlugin,
   admin,
@@ -17,31 +17,31 @@ import {
   oAuthProxy,
   openAPI,
   organization,
-} from "better-auth/plugins";
+} from 'better-auth/plugins'
 // Internal
-import { LOCALE_COOKIE, type Locale } from "@libraries/i18n";
-import type { Database } from "@backend/db";
-import * as schema from "@backend/db/schema/auth";
-import { env } from "@backend/api/services/env"
-import { additionalFields } from "./additional-fields";
+import { LOCALE_COOKIE, type Locale } from '@libraries/i18n'
+import type { Database } from '@backend/db'
+import * as schema from '@backend/db/schema/auth'
+import { env } from '@backend/api/services/env'
+import { additionalFields } from './additional-fields'
 // import { generateAppleClientSecret } from "./lib/apple";
-import { he } from "../translations/he";
-import { bunRedisStorage } from "./secondary-storage";
-import { redis } from "@backend/api/services/redis";
-import { generateAppleClientSecret } from "./apple";
+import { he } from '../translations/he'
+import { bunRedisStorage } from './secondary-storage'
+import { redis } from '@backend/api/services/redis'
+import { generateAppleClientSecret } from './apple'
 
 const logger: Logger = {
-  level: "warn",
+  level: 'warn',
   log: (level, message, ...args) => {
-    log[level]({ args, message });
+    log[level]({ args, message })
   },
-};
+}
 
 const translations = {
-  "en-US": locales.en,
-  "es-US": locales.es,
-  "he-IL": he,
-} satisfies Record<Locale, TranslationDictionary>;
+  'en-US': locales.en,
+  'es-US': locales.es,
+  'he-IL': he,
+} satisfies Record<Locale, TranslationDictionary>
 
 // Keep plugin types as references to their factories in generated declarations.
 // Inferring the array expands every plugin's endpoints into the options type.
@@ -60,7 +60,7 @@ const translations = {
 
 export function createAuth(db: Database) {
   return betterAuth({
-    appName: "justpets",
+    appName: 'justpets',
     // Deployed URL, used for things like callbacks
     baseURL: env.BETTER_AUTH_URL,
     // Secret used for signing cookies
@@ -70,12 +70,12 @@ export function createAuth(db: Database) {
     logger,
     // And OTEL Traces
     experimental: {
-      instrumentation: { enabled: true }
+      instrumentation: { enabled: true },
     },
 
     // We store users in Postgres / NeonDB
     database: drizzleAdapter(db, {
-      provider: "pg",
+      provider: 'pg',
       schema,
     }),
 
@@ -92,7 +92,7 @@ export function createAuth(db: Database) {
         // users can sign in with multiple options
         enabled: true,
         // We trust these providers
-        trustedProviders: ["apple", "google", "facebook"],
+        trustedProviders: ['apple', 'google', 'facebook'],
         // Linking an account does not auto-update their information
         updateUserInfoOnLink: false,
       },
@@ -101,22 +101,22 @@ export function createAuth(db: Database) {
     advanced: {
       database: {
         // we use UUID identifiers... Makes joins simpler in the data model
-        generateId: "uuid",
+        generateId: 'uuid',
       },
       defaultCookieAttributes: {
         httpOnly: true,
-        sameSite: "lax",
+        sameSite: 'lax',
         secure: true,
       },
     },
-    
+
     databaseHooks: {
       user: {
         create: {
           // Image is already on the user — sync domain check, download in background.
           after: (_user) => {
             // profileImages?.cacheExternalImage(user.id, user.image);
-            return Promise.resolve();
+            return Promise.resolve()
           },
         },
       },
@@ -125,7 +125,7 @@ export function createAuth(db: Database) {
           // Sign-in / returning users: load image in background (does not block).
           after: (_session) => {
             // profileImages?.cacheExternalImage(session.userId);
-            return Promise.resolve();
+            return Promise.resolve()
           },
         },
       },
@@ -139,7 +139,7 @@ export function createAuth(db: Database) {
     session: {
       cookieCache: {
         enabled: false, // consider true if we have load higher than our redis instance can handle
-        version: "1", // Change to invalidate existing cookie caches and reload from the database
+        version: '1', // Change to invalidate existing cookie caches and reload from the database
       },
       // Store all sessions in the database as an audit log
       storeSessionInDatabase: true,
@@ -153,11 +153,11 @@ export function createAuth(db: Database) {
       apple: async () => ({
         // appBundleIdentifier: env.APPLE_BUNDLE_IDENTIFIER,
         clientId: env.APPLE_CLIENT_ID,
-        appBundleIdentifier: "software.dogfood.justpets",
+        appBundleIdentifier: 'software.dogfood.justpets',
         audience: [
-          "software.dogfood.justpets",
-          "software.dogfood.justpets-business",
-          "software.dogfood.justpets-travel",
+          'software.dogfood.justpets',
+          'software.dogfood.justpets-business',
+          'software.dogfood.justpets-travel',
         ],
         clientSecret: await generateAppleClientSecret({
           clientId: env.APPLE_CLIENT_ID,
@@ -178,21 +178,16 @@ export function createAuth(db: Database) {
       facebook: {
         clientId: env.FACEBOOK_CLIENT_ID,
         clientSecret: env.FACEBOOK_CLIENT_SECRET,
-      }
+      },
     },
 
     // Allowed origins for mobile apps and web apps
     trustedOrigins: [
-      "justpets-parent://", // parent app schema
-      "justpets-buisness://", // buisness app schema
-      "justpets-travel://", // travel parent app schema
-      ...(process.env.NODE_ENV === "development" // mobile app schemas in development
-        ? [
-            "http://justpets.localhost",
-            "exp://",
-            "exp://**",
-            "exp://192.168.*.*:*/**",
-          ]
+      'justpets-parent://', // parent app schema
+      'justpets-buisness://', // buisness app schema
+      'justpets-travel://', // travel parent app schema
+      ...(process.env.NODE_ENV === 'development' // mobile app schemas in development
+        ? ['http://justpets.localhost', 'exp://', 'exp://**', 'exp://192.168.*.*:*/**']
         : []),
     ],
 
@@ -205,9 +200,9 @@ export function createAuth(db: Database) {
     plugins: [
       // Default Authentication Method. See https://www.404media.co/we-dont-want-your-password-3/
       // emailOTP({
-        // changeEmail: { enabled: true, verifyCurrentEmail: true },
-        // TODO: Send it in the users or the current locale
-        // sendVerificationOTP: (data) => mail.sendVerificationOTP(data),
+      // changeEmail: { enabled: true, verifyCurrentEmail: true },
+      // TODO: Send it in the users or the current locale
+      // sendVerificationOTP: (data) => mail.sendVerificationOTP(data),
       // }),
       // Power users who use Password Managers. One click sign in for them.
       passkey(),
@@ -248,7 +243,7 @@ export function createAuth(db: Database) {
       // JWTs are required for PowerSync and potentially other sidecar services
       jwt({
         jwks: {
-          keyPairConfig: { alg: "ES256" },
+          keyPairConfig: { alg: 'ES256' },
         },
         // Powersync uses `/token` directly and not the header
         disableSettingJwtHeader: true,
@@ -262,7 +257,7 @@ export function createAuth(db: Database) {
 
       // support our locales
       i18n({
-        detection: ["session", "cookie", "header"],
+        detection: ['session', 'cookie', 'header'],
         localeCookie: LOCALE_COOKIE,
         translations,
       }),
@@ -272,5 +267,5 @@ export function createAuth(db: Database) {
         disableDefaultReference: true, // we have our own docs UI
       }),
     ],
-  });
+  })
 }

@@ -1,21 +1,18 @@
-"use client";
+'use client'
 
-import { Description, FieldError, Switch } from "@heroui/react";
-import { useFieldContext } from "./context";
-import { getError } from "./get-error";
+import { Description, FieldError, Switch } from '@heroui/react'
+import { useFieldContext } from './context'
+import { getError } from './get-error'
 
 export function SwitchField({
   label,
   description,
   ...props
-}: (
-  | { label: string; "aria-label"?: string }
-  | { label?: string; "aria-label": string }
-) & {
-  description?: React.ReactNode;
+}: ({ label: string; 'aria-label'?: string } | { label?: string; 'aria-label': string }) & {
+  description?: React.ReactNode
 } & React.ComponentProps<typeof Switch>) {
-  const field = useFieldContext<boolean>();
-  const error = getError(field);
+  const field = useFieldContext<boolean>()
+  const error = getError(field)
   return (
     <Switch
       isSelected={field.state.value}
@@ -30,7 +27,7 @@ export function SwitchField({
         {label}
       </Switch.Content>
       {!!description && <Description>{description}</Description>}
-      {typeof error === "string" && <FieldError>{error}</FieldError>}
+      {typeof error === 'string' && <FieldError>{error}</FieldError>}
     </Switch>
-  );
+  )
 }

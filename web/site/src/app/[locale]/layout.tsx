@@ -1,4 +1,4 @@
-// import './globals.css'
+import './styles.css'
 
 import { DEFAULT_LOCALE, dir, Locales } from '@libraries/i18n'
 import type { Metadata } from 'next'

@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   DateField,
@@ -7,8 +7,8 @@ import {
   Description,
   Label,
   RangeCalendar,
-} from "@heroui/react";
-import { useFieldContext } from "./context";
+} from '@heroui/react'
+import { useFieldContext } from './context'
 
 export function DateRangePickerField({
   label,
@@ -16,11 +16,11 @@ export function DateRangePickerField({
   calendarAriaLabel,
   ...props
 }: {
-  label?: string;
-  description?: string;
-  calendarAriaLabel: string;
+  label?: string
+  description?: string
+  calendarAriaLabel: string
 } & React.ComponentProps<typeof DateRangePicker>) {
-  const field = useFieldContext<DateRange | null>();
+  const field = useFieldContext<DateRange | null>()
 
   return (
     <DateRangePicker
@@ -56,9 +56,7 @@ export function DateRangePickerField({
           </RangeCalendar.Header>
           <RangeCalendar.Grid>
             <RangeCalendar.GridHeader>
-              {(day) => (
-                <RangeCalendar.HeaderCell>{day}</RangeCalendar.HeaderCell>
-              )}
+              {(day) => <RangeCalendar.HeaderCell>{day}</RangeCalendar.HeaderCell>}
             </RangeCalendar.GridHeader>
             <RangeCalendar.GridBody>
               {(date) => <RangeCalendar.Cell date={date} />}
@@ -73,5 +71,5 @@ export function DateRangePickerField({
       </DateRangePicker.Popover>
       {!!description && <Description>{description}</Description>}
     </DateRangePicker>
-  );
+  )
 }

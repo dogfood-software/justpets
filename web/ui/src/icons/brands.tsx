@@ -1,1 +1,1 @@
-export * from "@fortawesome/free-brands-svg-icons";
+export * from '@fortawesome/free-brands-svg-icons'

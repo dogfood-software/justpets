@@ -1,6 +1,6 @@
 /**
  * Copied from https://github.com/kevinmarrec/better-auth-bun-redis/blob/main/src/storage.ts
- * 
+ *
  * MIT Licensed on GitHub
  */
 import type { SecondaryStorage } from '@better-auth/core/db'
@@ -70,11 +70,16 @@ export function bunRedisStorage({ client, keyPrefix = 'better-auth:' }: BunRedis
     let cursor = '0'
 
     do {
-      const [nextCursor, batch] = await client.scan(cursor, 'MATCH', `${escapedPrefix}*`, 'COUNT', scanCount)
+      const [nextCursor, batch] = await client.scan(
+        cursor,
+        'MATCH',
+        `${escapedPrefix}*`,
+        'COUNT',
+        scanCount,
+      )
       cursor = nextCursor
 
-      if (batch.length > 0)
-        yield batch
+      if (batch.length > 0) yield batch
     } while (cursor !== '0')
   }
 
@@ -111,12 +116,7 @@ export function bunRedisStorage({ client, keyPrefix = 'better-auth:' }: BunRedis
      */
     async increment(key: string, ttl: number) {
       // `send` is untyped, so the reply is coerced rather than trusted.
-      return Number(await client.send('EVAL', [
-        incrementScript,
-        '1',
-        prefixKey(key),
-        String(ttl),
-      ]))
+      return Number(await client.send('EVAL', [incrementScript, '1', prefixKey(key), String(ttl)]))
     },
 
     /**
@@ -132,8 +132,7 @@ export function bunRedisStorage({ client, keyPrefix = 'better-auth:' }: BunRedis
 
       if (ttl !== undefined && ttl > 0) {
         await client.setex(prefixedKey, ttl, value)
-      }
-      else {
+      } else {
         await client.set(prefixedKey, value)
       }
     },
@@ -157,8 +156,7 @@ export function bunRedisStorage({ client, keyPrefix = 'better-auth:' }: BunRedis
       const keys = new Set<string>()
 
       for await (const batch of scanBatches()) {
-        for (const key of batch)
-          keys.add(key.slice(keyPrefix.length))
+        for (const key of batch) keys.add(key.slice(keyPrefix.length))
       }
 
       return [...keys]
@@ -182,8 +180,7 @@ export function bunRedisStorage({ client, keyPrefix = 'better-auth:' }: BunRedis
     async clear(): Promise<void> {
       // `scanBatches` only yields non-empty pages, so DEL always receives at
       // least one key and an empty store never issues an invalid zero-arg DEL.
-      for await (const batch of scanBatches())
-        await client.del(...batch)
+      for await (const batch of scanBatches()) await client.del(...batch)
     },
   } satisfies SecondaryStorage & {
     listKeys: () => Promise<string[]>

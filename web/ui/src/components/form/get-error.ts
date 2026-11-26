@@ -1,19 +1,19 @@
-import type { useFieldContext } from "./context";
+import type { useFieldContext } from './context'
 
 export function getError(
-  // biome-ignore lint/suspicious/noExplicitAny: complex type we care not for
-  field: ReturnType<typeof useFieldContext<any>>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Accept fields with any value type.
+  field: ReturnType<typeof useFieldContext<any>>,
 ): string | undefined {
   if (!field.state.meta.isDirty) {
-    return undefined;
+    return undefined
   }
 
-  const error = field.state.meta.errors?.[0];
-  if (typeof error === "string") {
-    return error;
+  const error = field.state.meta.errors?.[0]
+  if (typeof error === 'string') {
+    return error
   }
-  if (typeof error === "object" && "message" in error) {
-    return String(error.message);
+  if (typeof error === 'object' && 'message' in error) {
+    return String(error.message)
   }
-  return undefined;
+  return undefined
 }

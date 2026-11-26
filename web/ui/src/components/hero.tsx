@@ -27,4 +27,4 @@ export {
   // props
   // functions
   toast,
-} from "@heroui/react";
+} from '@heroui/react'

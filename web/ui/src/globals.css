@@ -1,10 +1,10 @@
 /* GDPR Compliant Fonts */
-@import "./fonts.css";
+@import './fonts.css';
 
-@import "tailwindcss";
-@import "@heroui/styles";
+@import 'tailwindcss';
+@import '@heroui/styles';
 /* @import "@heroui-pro/react/css"; */
-@import "@fortawesome/fontawesome-svg-core/styles.css" layer(base);
+@import '@fortawesome/fontawesome-svg-core/styles.css' layer(base);
 
 @source "./**/*.{ts,tsx}";
 
@@ -39,22 +39,22 @@
 :root,
 .light,
 .default,
-[data-theme="light"],
-[data-theme="default"],
+[data-theme='light'],
+[data-theme='default'],
 .dark,
-[data-theme="dark"] {
+[data-theme='dark'] {
   /* Border Radius */
   --field-radius: 1rem;
 
   /* Font */
-  --font-sans: "Sn Pro Variable", "Fredoka Variable", sans-serif;
+  --font-sans: 'Sn Pro Variable', 'Fredoka Variable', sans-serif;
 }
 
 :root,
 .light,
 .default,
-[data-theme="light"],
-[data-theme="default"] {
+[data-theme='light'],
+[data-theme='default'] {
   /* Theme Colors */
   --background: oklch(97.02% 0.002 151.51);
   --muted: oklch(55.17% 0.004 151.51);
@@ -72,7 +72,7 @@
 }
 
 .dark,
-[data-theme="dark"] {
+[data-theme='dark'] {
   --background: oklch(12% 0.002 151.51);
   --muted: oklch(70.5% 0.004 151.51);
   --scrollbar: oklch(70.5% 0.002 151.51);

@@ -1,5 +1,5 @@
-import { Locales } from "@libraries/i18n";
+import { Locales } from '@libraries/i18n'
 
 export const additionalFields = {
-  locale: { defaultValue: "en-US", required: true, type: Locales },
-};
+  locale: { defaultValue: 'en-US', required: true, type: Locales },
+}

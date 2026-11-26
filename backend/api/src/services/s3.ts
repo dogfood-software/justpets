@@ -1,4 +1,4 @@
-import { env } from "./env"
+import { env } from './env'
 
 // S3 Client with Varlock loaded ENV variables
 export const s3 = new globalThis.Bun.S3Client({

@@ -1,0 +1,32 @@
+# Dependencies, caches, and build output
+**/node_modules/**
+**/.next/**
+**/.nx/**
+**/.tanstack/**
+**/.expo/**
+**/.turbo/**
+**/.vercel/**
+**/dist/**
+**/build/**
+**/out/**
+**/coverage/**
+**/playwright-report/**
+**/test-results/**
+.agents/**
+.codex/**
+
+# Generated code and assets
+**/routeTree.gen.ts
+**/next-env.d.ts
+**/*.d.json.ts
+**/payload-types.ts
+**/payload-generated-schema.ts
+**/importMap.js
+**/src/migrations/**
+**/public/**
+
+# Lockfiles are maintained by their package managers
+pnpm-lock.yaml
+**/package-lock.json
+**/yarn.lock
+**/bun.lock

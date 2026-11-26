@@ -8,6 +8,10 @@ export function getRouter() {
     scrollRestoration: true,
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
+    notFoundMode: 'fuzzy',
+    // TODO: Error states
+    // defaultNotFoundComponent:
+    // defaultErrorComponent:
   })
 
   return router

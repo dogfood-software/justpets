@@ -1,5 +1,5 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { type ClassValue, clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
 /**
  * Combine class names into the final form for the browser to consume efficiently, including optional and dynamic classes.
@@ -13,7 +13,7 @@ import { twMerge } from "tailwind-merge";
  * ```
  */
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs))
 }
 
 /**
@@ -25,9 +25,6 @@ export function cn(...inputs: ClassValue[]) {
  * <Button className={cnAria(({ isLoading }) => isLoading && "opacity-50"), "bg-blue-500", isWhite && "text-white"}>
  * ```
  */
-export function cnAria<T>(
-  ...inputs: (ClassValue | ((props: T) => ClassValue))[]
-) {
-  return (props: T) =>
-    cn(...inputs.map((c) => (typeof c === "function" ? c(props) : c)));
+export function cnAria<T>(...inputs: (ClassValue | ((props: T) => ClassValue))[]) {
+  return (props: T) => cn(...inputs.map((c) => (typeof c === 'function' ? c(props) : c)))
 }

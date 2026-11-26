@@ -7,11 +7,11 @@ See [otel-config.yaml](./otel-config.yaml) for the configuration.
 
 ## Exporters
 
-| Sink | Signals | Notes |
-| --- | --- | --- |
-| **PostHog** (EU) | logs, traces, metrics | Product analytics + observability |
-| **Better Stack** | logs, traces, metrics | Live tail + [AI SRE](https://betterstack.com/ai-sre) (free tier: 3-day retention) |
-| **Railway Traces** | traces only | Third sink via Railway's host OTLP receiver |
+| Sink               | Signals               | Notes                                                                             |
+| ------------------ | --------------------- | --------------------------------------------------------------------------------- |
+| **PostHog** (EU)   | logs, traces, metrics | Product analytics + observability                                                 |
+| **Better Stack**   | logs, traces, metrics | Live tail + [AI SRE](https://betterstack.com/ai-sre) (free tier: 3-day retention) |
+| **Railway Traces** | traces only           | Third sink via Railway's host OTLP receiver                                       |
 
 Apps keep pointing at this collector (`OTEL_EXPORTER_OTLP_ENDPOINT=http://otel.railway.internal:4318`).
 Fan-out stays collector-only — no per-app dual export.
@@ -22,11 +22,11 @@ Fan-out stays collector-only — no per-app dual export.
 
 Set these on the Railway `otel` service:
 
-| Variable | Purpose |
-| --- | --- |
-| `PH_PROJECT_TOKEN` | PostHog project API token (`Bearer` auth) |
-| `BETTERSTACK_INGESTING_HOST` | Better Stack source ingest host (no `https://`) |
-| `BETTERSTACK_SOURCE_TOKEN` | Better Stack source token (`Bearer` auth) |
+| Variable                      | Purpose                                                                                                                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `PH_PROJECT_TOKEN`            | PostHog project API token (`Bearer` auth)                                                                                                                                |
+| `BETTERSTACK_INGESTING_HOST`  | Better Stack source ingest host (no `https://`)                                                                                                                          |
+| `BETTERSTACK_SOURCE_TOKEN`    | Better Stack source token (`Bearer` auth)                                                                                                                                |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | Injected by Railway when Tracing is enabled on `otel` — do **not** set this yourself. Config defaults to `http://127.0.0.1:4318` if unset so the collector still starts. |
 
 Also set (Railway's receiver accepts traces only):

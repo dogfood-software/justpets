@@ -1,8 +1,8 @@
-import { type Locale, Locales } from "@libraries/i18n";
-import * as t from "drizzle-orm/pg-core";
+import { type Locale, Locales } from '@libraries/i18n'
+import * as t from 'drizzle-orm/pg-core'
 
 // public always exists, don't export so it won't be created
-export const localeEnum = t.pgEnum("locale", Locales as [Locale, ...Locale[]]);
+export const localeEnum = t.pgEnum('locale', Locales as [Locale, ...Locale[]])
 
 /**
  * Data Types

@@ -1,16 +1,16 @@
 /** Locales supported by React Aria Components */
-/** biome-ignore-all assist/source/useSortedKeys: sorted intentionally by market */
+/** Keep locales grouped by market. */
 const SUPPORTED_LOCALES = {
   // USA
-  "en-US": "English", // "English (United States)",
-  "es-US": "Español", // "Español (Estados Unidos)",
+  'en-US': 'English', // "English (United States)",
+  'es-US': 'Español', // "Español (Estados Unidos)",
 
   // Canada
   // "en-CA": "English (Canada)",
   // "fr-CA": "Français (Canada)",
 
   // Nechama and RTL semantic HTML validation
-  "he-IL": "עברית", // Hebrew
+  'he-IL': 'עברית', // Hebrew
 
   // "nl-NL": "Nederlands", // Dutch
   // "fr-FR": "Français", // French (France)
@@ -53,16 +53,14 @@ const SUPPORTED_LOCALES = {
   // "uk-UA": "Українська", // Ukrainian
   // "zh-CN": "简体中文", // Simplified Chinese
   // "zh-TW": "繁體中文", // Traditional Chinese
-} as const;
+} as const
 
-export const Locales = Object.keys(
-  SUPPORTED_LOCALES
-) as (keyof typeof SUPPORTED_LOCALES)[];
-export type Locale = (typeof Locales)[number];
+export const Locales = Object.keys(SUPPORTED_LOCALES) as (keyof typeof SUPPORTED_LOCALES)[]
+export type Locale = (typeof Locales)[number]
 
 export function nativeName(locale: Locale): string {
-  return SUPPORTED_LOCALES[locale];
+  return SUPPORTED_LOCALES[locale]
 }
 
-export const LOCALE_COOKIE = "locale";
-export const DEFAULT_LOCALE: Locale = "en-US";
+export const LOCALE_COOKIE = 'locale'
+export const DEFAULT_LOCALE: Locale = 'en-US'

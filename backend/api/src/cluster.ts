@@ -5,14 +5,14 @@
 import cluster from 'node:cluster'
 import os from 'node:os'
 import process from 'node:process'
-import "./services/env"
+import './services/env'
 
 if (cluster.isPrimary) {
-  const nodes = os.availableParallelism();
+  const nodes = os.availableParallelism()
   console.log(`Starting cluster with ${nodes} threads`)
-    for (let i = 0; i < nodes; i++) {
-      cluster.fork()
-    }
+  for (let i = 0; i < nodes; i++) {
+    cluster.fork()
+  }
 } else {
   await import('./server')
   console.log(`Worker ${process.pid} started`)

@@ -1,4 +1,4 @@
-import { importPKCS8, SignJWT } from "jose";
+import { importPKCS8, SignJWT } from 'jose'
 
 /**
  * Apple requires a JWT signed with the private key for authentication.
@@ -15,22 +15,22 @@ export async function generateAppleClientSecret({
   keyId,
   privateKey,
 }: {
-  clientId: string;
-  teamId: string;
-  keyId: string;
-  privateKey: string;
+  clientId: string
+  teamId: string
+  keyId: string
+  privateKey: string
 }) {
-  const key = await importPKCS8(privateKey, "ES256");
-  const now = Math.floor(Date.now() / 1000);
+  const key = await importPKCS8(privateKey, 'ES256')
+  const now = Math.floor(Date.now() / 1000)
   return (
     new SignJWT({})
-      .setProtectedHeader({ alg: "ES256", kid: keyId })
+      .setProtectedHeader({ alg: 'ES256', kid: keyId })
       .setIssuer(teamId)
       .setSubject(clientId)
-      .setAudience("https://appleid.apple.com")
+      .setAudience('https://appleid.apple.com')
       .setIssuedAt(now)
       // 180 days, less than 15777000 seconds but not by much
       .setExpirationTime(now + 180 * 24 * 60 * 60)
       .sign(key)
-  );
+  )
 }

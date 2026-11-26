@@ -6,13 +6,7 @@ import { useCurrentTimezone } from '../hooks/use-timezone'
 import { dir } from '@libraries/i18n'
 import { use, useEffect } from 'react'
 
-export function I18nProvider({
-  children,
-  locale,
-}: {
-  children: React.ReactNode
-  locale: Locale
-}) {
+export function I18nProvider({ children, locale }: { children: React.ReactNode; locale: Locale }) {
   const timezone = useCurrentTimezone()
   const messages = use(loadMessages(locale))
 

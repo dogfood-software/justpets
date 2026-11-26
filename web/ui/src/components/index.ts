@@ -1,3 +1,3 @@
-export * from "./hero";
-export * from "./icon";
-export * from "./provider";
+export * from './hero'
+export * from './icon'
+export * from './provider'

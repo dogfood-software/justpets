@@ -11,7 +11,11 @@
     "build": "rm -rf dist && bun build ./src/server.ts --target=bun --minify-whitespace --minify-syntax --sourcemap --outdir ./dist",
     "check": "tsc --noEmit",
     "dev": "NODE_ENV=development bun run --watch src/server.ts",
-    "start": "bun ./dist/server.js"
+    "start": "bun ./dist/server.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --ignore-path ../../.prettierignore --write .",
+    "format:check": "prettier --ignore-path ../../.prettierignore --check ."
   },
   "dependencies": {
     "@backend/db": "workspace:*",

@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   Calendar,
@@ -8,9 +8,9 @@ import {
   Description,
   FieldError,
   Label,
-} from "@heroui/react";
-import { useFieldContext } from "./context";
-import { getError } from "./get-error";
+} from '@heroui/react'
+import { useFieldContext } from './context'
+import { getError } from './get-error'
 
 export function DatePickerField({
   label,
@@ -18,12 +18,12 @@ export function DatePickerField({
   calendarAriaLabel,
   ...props
 }: {
-  label?: string;
-  description?: string;
-  calendarAriaLabel: string;
+  label?: string
+  description?: string
+  calendarAriaLabel: string
 } & React.ComponentProps<typeof DatePicker>) {
-  const field = useFieldContext<DateValue | null>();
-  const error = getError(field);
+  const field = useFieldContext<DateValue | null>()
+  const error = getError(field)
 
   return (
     <DatePicker
@@ -34,9 +34,7 @@ export function DatePickerField({
     >
       {!!label && <Label>{label}</Label>}
       <DateField.Group fullWidth>
-        <DateField.Input>
-          {(segment) => <DateField.Segment segment={segment} />}
-        </DateField.Input>
+        <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
         <DateField.Suffix>
           <DatePicker.Trigger>
             <DatePicker.TriggerIndicator />
@@ -57,9 +55,7 @@ export function DatePickerField({
             <Calendar.GridHeader>
               {(day) => <Calendar.HeaderCell>{day}</Calendar.HeaderCell>}
             </Calendar.GridHeader>
-            <Calendar.GridBody>
-              {(date) => <Calendar.Cell date={date} />}
-            </Calendar.GridBody>
+            <Calendar.GridBody>{(date) => <Calendar.Cell date={date} />}</Calendar.GridBody>
           </Calendar.Grid>
           <Calendar.YearPickerGrid>
             <Calendar.YearPickerGridBody>
@@ -69,7 +65,7 @@ export function DatePickerField({
         </Calendar>
       </DatePicker.Popover>
       {!!description && <Description>{description}</Description>}
-      {typeof error === "string" && <FieldError>{error}</FieldError>}
+      {typeof error === 'string' && <FieldError>{error}</FieldError>}
     </DatePicker>
-  );
+  )
 }

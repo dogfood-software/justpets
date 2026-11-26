@@ -1,18 +1,16 @@
-"use client";
+'use client'
 
-import { Description, FieldError, Label, NumberField } from "@heroui/react";
-import { useFieldContext } from "./context";
-import { getError } from "./get-error";
+import { Description, FieldError, Label, NumberField } from '@heroui/react'
+import { useFieldContext } from './context'
+import { getError } from './get-error'
 
 export function NumberInputField({
   label,
   description,
   ...props
-}: { label?: string; description?: string } & React.ComponentProps<
-  typeof NumberField
->) {
-  const field = useFieldContext<number>();
-  const error = getError(field);
+}: { label?: string; description?: string } & React.ComponentProps<typeof NumberField>) {
+  const field = useFieldContext<number>()
+  const error = getError(field)
   return (
     <NumberField
       {...props}
@@ -28,7 +26,7 @@ export function NumberInputField({
         <NumberField.IncrementButton />
       </NumberField.Group>
       {!!description && <Description>{description}</Description>}
-      {typeof error === "string" && <FieldError>{error}</FieldError>}
+      {typeof error === 'string' && <FieldError>{error}</FieldError>}
     </NumberField>
-  );
+  )
 }

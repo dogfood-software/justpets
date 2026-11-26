@@ -38,19 +38,19 @@ pnpm exec vitest --project node run
 Story copy follows the Storybook locale toolbar so you can see LTR/RTL and string length in context. Use a simple keyed object — **not** the app translation manager:
 
 ```tsx
-import { storyLocale } from "@web/ui/stories/story-locale";
-import { DEFAULT_LOCALE, type Locale } from "@libraries/i18n";
+import { storyLocale } from '@web/ui/stories/story-locale'
+import { DEFAULT_LOCALE, type Locale } from '@libraries/i18n'
 
 const labels = {
-  "en-US": { primary: "Order now" },
-  "es-US": { primary: "Ordenar ahora" },
-  "he-IL": { primary: "הזמן עכשיו" },
-} as const;
+  'en-US': { primary: 'Order now' },
+  'es-US': { primary: 'Ordenar ahora' },
+  'he-IL': { primary: 'הזמן עכשיו' },
+} as const
 
 render: (_args, { globals }) => {
-  const t = labels[storyLocale(globals)];
-  return <Button>{t.primary}</Button>;
-};
+  const t = labels[storyLocale(globals)]
+  return <Button>{t.primary}</Button>
+}
 ```
 
 `play` functions should assert against the same locale’s labels.

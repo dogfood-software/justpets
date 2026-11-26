@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   Description,
@@ -7,9 +7,9 @@ import {
   TextArea,
   TextField,
   type TextFieldProps,
-} from "@heroui/react";
-import { useFieldContext } from "./context";
-import { getError } from "./get-error";
+} from '@heroui/react'
+import { useFieldContext } from './context'
+import { getError } from './get-error'
 
 export function TextAreaField({
   label,
@@ -17,12 +17,12 @@ export function TextAreaField({
   description,
   ...props
 }: {
-  label?: React.ReactNode;
-  placeholder?: string;
-  description?: React.ReactNode;
-} & Omit<TextFieldProps, "value" | "onChange" | "onBlur" | "isInvalid">) {
-  const field = useFieldContext<string>();
-  const error = getError(field);
+  label?: React.ReactNode
+  placeholder?: string
+  description?: React.ReactNode
+} & Omit<TextFieldProps, 'value' | 'onChange' | 'onBlur' | 'isInvalid'>) {
+  const field = useFieldContext<string>()
+  const error = getError(field)
   return (
     <TextField
       isInvalid={!!error}
@@ -34,7 +34,7 @@ export function TextAreaField({
       {!!label && <Label>{label}</Label>}
       <TextArea aria-placeholder={placeholder} placeholder={placeholder} />
       {!!description && <Description>{description}</Description>}
-      {typeof error === "string" && <FieldError>{error}</FieldError>}
+      {typeof error === 'string' && <FieldError>{error}</FieldError>}
     </TextField>
-  );
+  )
 }

@@ -32,12 +32,13 @@ If you prefer not to use Tailwind CSS:
 
 ## Linting & Formatting
 
-This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
+This project uses the repository's shared [ESLint and Prettier configuration](../../README.md#linting-and-formatting), including the TanStack ESLint rules for this app. The following scripts are available:
 
 ```bash
 pnpm lint
+pnpm lint:fix
 pnpm format
-pnpm check
+pnpm format:check
 ```
 
 ## Routing

@@ -1,15 +1,15 @@
-import type { Formats as IntlFormats } from "use-intl";
+import type { Formats as IntlFormats } from 'use-intl'
 
 export const formats = {
   dateTime: {
     short: {
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      month: "short",
-      year: "numeric",
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      month: 'short',
+      year: 'numeric',
     },
   },
-} satisfies IntlFormats;
+} satisfies IntlFormats
 
-export type Formats = typeof formats;
+export type Formats = typeof formats

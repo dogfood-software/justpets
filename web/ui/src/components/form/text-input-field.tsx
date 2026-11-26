@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   Button,
@@ -8,13 +8,13 @@ import {
   Label,
   TextField,
   type TextFieldProps,
-} from "@heroui/react";
-import { useState } from "react";
-import { faEye, faEyeSlash } from "../../icons/solid";
-import { cn } from "../../utils/cn";
-import { Icon } from "../icon";
-import { useFieldContext } from "./context";
-import { getError } from "./get-error";
+} from '@heroui/react'
+import { useState } from 'react'
+import { faEye, faEyeSlash } from '../../icons/solid'
+import { cn } from '../../utils/cn'
+import { Icon } from '../icon'
+import { useFieldContext } from './context'
+import { getError } from './get-error'
 
 export function TextInputField({
   label,
@@ -25,20 +25,18 @@ export function TextInputField({
   type,
   ...props
 }: {
-  label?: string;
-  placeholder?: string;
-  description?: string;
-  prefix?: React.ReactNode;
-  suffix?: React.ReactNode;
-} & Omit<TextFieldProps, "value" | "onChange" | "onBlur" | "isInvalid">) {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  label?: string
+  placeholder?: string
+  description?: string
+  prefix?: React.ReactNode
+  suffix?: React.ReactNode
+} & Omit<TextFieldProps, 'value' | 'onChange' | 'onBlur' | 'isInvalid'>) {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
-  const field = useFieldContext<string>();
-  const error = getError(field);
+  const field = useFieldContext<string>()
+  const error = getError(field)
 
-  const finalType =
-    // biome-ignore lint/style/noNestedTernary: simple override
-    type === "password" ? (isPasswordVisible ? "text" : "password") : type;
+  const finalType = type === 'password' ? (isPasswordVisible ? 'text' : 'password') : type
 
   return (
     <TextField
@@ -52,14 +50,11 @@ export function TextInputField({
       <InputGroup>
         {!!prefix && <InputGroup.Prefix>{prefix}</InputGroup.Prefix>}
         <InputGroup.Input
-          className={cn(
-            prefix ? "ps-0" : "ps-3",
-            suffix || type === "password" ? "pe-0" : "pe-3"
-          )}
+          className={cn(prefix ? 'ps-0' : 'ps-3', suffix || type === 'password' ? 'pe-0' : 'pe-3')}
           placeholder={placeholder}
           type={finalType}
         />
-        {type === "password" ? (
+        {type === 'password' ? (
           <InputGroup.Suffix>
             <Button
               isIconOnly
@@ -75,7 +70,7 @@ export function TextInputField({
         )}
       </InputGroup>
       {!!description && <Description>{description}</Description>}
-      {typeof error === "string" && <FieldError>{error}</FieldError>}
+      {typeof error === 'string' && <FieldError>{error}</FieldError>}
     </TextField>
-  );
+  )
 }

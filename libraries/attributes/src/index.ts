@@ -1,15 +1,8 @@
-import {
-  defaultResource,
-  type Resource,
-  resourceFromAttributes,
-} from "@opentelemetry/resources";
+import { defaultResource, type Resource, resourceFromAttributes } from '@opentelemetry/resources'
 
 /** Get the OTEL service name from environment variables or a fallback. */
-export function otelServiceName(
-  env: Record<string, string | undefined>,
-  fallback: string
-): string {
-  return env.OTEL_SERVICE_NAME ?? env.RAILWAY_SERVICE_NAME ?? fallback;
+export function otelServiceName(env: Record<string, string | undefined>, fallback: string): string {
+  return env.OTEL_SERVICE_NAME ?? env.RAILWAY_SERVICE_NAME ?? fallback
 }
 
 /**
@@ -18,37 +11,33 @@ export function otelServiceName(
  * Variable UI interpolation, which is empty at config time).
  */
 export function railwayResourceAttributes(
-  env: Record<string, string | undefined>
+  env: Record<string, string | undefined>,
 ): Record<string, string | number | boolean> {
-  const attrs: Record<string, string> = {};
+  const attrs: Record<string, string> = {}
 
   const pairs: [string, string | undefined][] = [
-    ["deployment.environment.name", env.RAILWAY_ENVIRONMENT_NAME],
-    ["service.instance.id", env.RAILWAY_REPLICA_ID],
-    ["cloud.region", env.RAILWAY_REPLICA_REGION],
-    ["railway.deployment.id", env.RAILWAY_DEPLOYMENT_ID],
-    ["service.version", env.RAILWAY_GIT_COMMIT_SHA],
-  ];
+    ['deployment.environment.name', env.RAILWAY_ENVIRONMENT_NAME],
+    ['service.instance.id', env.RAILWAY_REPLICA_ID],
+    ['cloud.region', env.RAILWAY_REPLICA_REGION],
+    ['railway.deployment.id', env.RAILWAY_DEPLOYMENT_ID],
+    ['service.version', env.RAILWAY_GIT_COMMIT_SHA],
+  ]
 
   for (const [key, value] of pairs) {
     if (value) {
-      attrs[key] = value;
+      attrs[key] = value
     }
   }
 
-  return attrs;
+  return attrs
 }
 
 /**
  * Default SDK resource (`telemetry.sdk.*`, etc.) merged with Railway attrs.
  * Prefer this over a bare `resourceFromAttributes(...)` so SDK identity is kept.
  */
-export function railwayOtelResource(
-  env: Record<string, string | undefined>
-): Resource {
-  return defaultResource().merge(
-    resourceFromAttributes(railwayResourceAttributes(env))
-  );
+export function railwayOtelResource(env: Record<string, string | undefined>): Resource {
+  return defaultResource().merge(resourceFromAttributes(railwayResourceAttributes(env)))
 }
 
 /**
@@ -56,34 +45,28 @@ export function railwayOtelResource(
  * Omits `service.name` so the caller's `serviceName` / `OTEL_SERVICE_NAME` wins.
  */
 export function railwayOtelResourceAttributes(
-  env: Record<string, string | undefined>
+  env: Record<string, string | undefined>,
 ): Record<string, string | number | boolean> {
-  const out: Record<string, string | number | boolean> = {};
-  for (const [key, value] of Object.entries(
-    railwayOtelResource(env).attributes
-  )) {
-    if (key === "service.name") {
-      continue;
+  const out: Record<string, string | number | boolean> = {}
+  for (const [key, value] of Object.entries(railwayOtelResource(env).attributes)) {
+    if (key === 'service.name') {
+      continue
     }
-    if (
-      typeof value === "string" ||
-      typeof value === "number" ||
-      typeof value === "boolean"
-    ) {
-      out[key] = value;
+    if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+      out[key] = value
     }
   }
-  return out;
+  return out
 }
 
 /** Helper function to use the same log keys for errors in this project */
 export function errorAttributes(error: Error | unknown) {
-  const err = error instanceof Error ? error : undefined;
+  const err = error instanceof Error ? error : undefined
   return {
-    "exception.message": err?.message ?? String(error),
-    "exception.stacktrace": err?.stack,
-    "exception.type": err?.name,
+    'exception.message': err?.message ?? String(error),
+    'exception.stacktrace': err?.stack,
+    'exception.type': err?.name,
     // can be overridden with the message property, but defaults to the error title
     msg: err?.message ?? String(error),
-  };
+  }
 }

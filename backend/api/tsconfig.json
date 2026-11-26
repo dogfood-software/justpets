@@ -7,7 +7,7 @@
     "declarationMap": false,
     "outDir": "dist",
     "paths": {
-      "@backend/api/*": ["./src/*"],
+      "@backend/api/*": ["./src/*"]
     }
   },
   "include": ["src/**/*", "package.json"],

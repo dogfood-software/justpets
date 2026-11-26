@@ -7,9 +7,7 @@ import { useMemo } from 'react'
 function readCookie(name: string): string | undefined {
   // eslint-disable-next-line no-shadow
   const match = document.cookie.match(
-    new RegExp(
-      `(?:^|; )${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}=([^;]*)`,
-    ),
+    new RegExp(`(?:^|; )${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}=([^;]*)`),
   )
   return match?.[1] ? decodeURIComponent(match[1]) : undefined
 }
@@ -40,11 +38,7 @@ export function detectLocale(): Locale {
     return fromCookie
   }
 
-  const matched = match(
-    [...navigator.languages],
-    [...Locales],
-    DEFAULT_LOCALE,
-  ) as Locale
+  const matched = match([...navigator.languages], [...Locales], DEFAULT_LOCALE) as Locale
 
   return isLocale(matched) ? matched : DEFAULT_LOCALE
 }

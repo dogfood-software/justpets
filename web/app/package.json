@@ -10,9 +10,11 @@
     "generate": "tsr generate",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint",
-    "format": "prettier --write . && eslint --fix",
-    "check": "prettier --check ."
+    "lint": "eslint .",
+    "format": "prettier --ignore-path ../../.prettierignore --write .",
+    "check": "pnpm format:check",
+    "lint:fix": "eslint . --fix",
+    "format:check": "prettier --ignore-path ../../.prettierignore --check ."
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.10.1",
@@ -29,16 +31,13 @@
   },
   "devDependencies": {
     "@tanstack/devtools-vite": "0.8.7",
-    "@tanstack/eslint-config": "0.5.0",
     "@tanstack/router-cli": "^1.168.0",
     "@tanstack/router-plugin": "1.169.0",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
-    "eslint": "^9.20.0",
     "oxc-transform-react": "^0.158.0",
-    "prettier": "^3.10.1",
     "typescript": "^6.0.2",
     "vite": "^8.3.8"
   }

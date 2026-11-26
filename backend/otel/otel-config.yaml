@@ -33,18 +33,18 @@ processors:
 
 exporters:
   otlp_http/posthog:
-    traces_endpoint: "https://eu.i.posthog.com/i/v1/traces"
-    metrics_endpoint: "https://eu.i.posthog.com/i/v1/metrics"
-    logs_endpoint: "https://eu.i.posthog.com/i/v1/logs"
+    traces_endpoint: 'https://eu.i.posthog.com/i/v1/traces'
+    metrics_endpoint: 'https://eu.i.posthog.com/i/v1/metrics'
+    logs_endpoint: 'https://eu.i.posthog.com/i/v1/logs'
     headers:
-      Authorization: "Bearer ${PH_PROJECT_TOKEN}"
+      Authorization: 'Bearer ${PH_PROJECT_TOKEN}'
 
   # Better Stack OTLP ingest — see https://betterstack.com/docs/logs/open-telemetry/
   # Free tier retains telemetry for 3 days (enough for AI SRE incident response).
   otlphttp/betterstack:
-    endpoint: "https://${BETTERSTACK_INGESTING_HOST}"
+    endpoint: 'https://${BETTERSTACK_INGESTING_HOST}'
     headers:
-      Authorization: "Bearer ${BETTERSTACK_SOURCE_TOKEN}"
+      Authorization: 'Bearer ${BETTERSTACK_SOURCE_TOKEN}'
     compression: gzip
 
   # Railway Traces — enable Tracing on this `otel` service so Railway injects
@@ -57,10 +57,10 @@ exporters:
     # Default allows the collector to start when Tracing is not enabled on
     # this service (no Railway-injected endpoint). Exports will fail softly
     # until OTEL_EXPORTER_OTLP_ENDPOINT is present.
-    endpoint: "${env:OTEL_EXPORTER_OTLP_ENDPOINT:-http://127.0.0.1:4318}"
+    endpoint: '${env:OTEL_EXPORTER_OTLP_ENDPOINT:-http://127.0.0.1:4318}'
     compression: gzip
     headers:
-      x-railway-otel: "true"
+      x-railway-otel: 'true'
 
 extensions:
   health_check:

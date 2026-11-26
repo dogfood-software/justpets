@@ -29,7 +29,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version-file: "package.json"
+          node-version-file: 'package.json'
           cache: pnpm
 
       - name: Setup Bun
@@ -37,6 +37,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Check lint and formatting
+        run: pnpm lint && pnpm format:check
 
       - name: Run test and check targets
         run: pnpm nx run-many -t test check

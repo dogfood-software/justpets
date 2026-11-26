@@ -1,18 +1,16 @@
-"use client";
+'use client'
 
-import { Description, FieldError, Label, Slider } from "@heroui/react";
-import { useFieldContext } from "./context";
-import { getError } from "./get-error";
+import { Description, FieldError, Label, Slider } from '@heroui/react'
+import { useFieldContext } from './context'
+import { getError } from './get-error'
 
 export function SliderField({
   label,
   description,
   ...props
-}: { label?: string; description?: string } & React.ComponentProps<
-  typeof Slider
->) {
-  const field = useFieldContext<number | number[]>();
-  const error = getError(field);
+}: { label?: string; description?: string } & React.ComponentProps<typeof Slider>) {
+  const field = useFieldContext<number | number[]>()
+  const error = getError(field)
   return (
     <Slider onChange={field.handleChange} value={field.state.value} {...props}>
       {!!label && <Label>{label}</Label>}
@@ -28,7 +26,7 @@ export function SliderField({
         )}
       </Slider.Track>
       {!!description && <Description>{description}</Description>}
-      {typeof error === "string" && <FieldError>{error}</FieldError>}
+      {typeof error === 'string' && <FieldError>{error}</FieldError>}
     </Slider>
-  );
+  )
 }

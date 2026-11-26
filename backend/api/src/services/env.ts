@@ -1,18 +1,20 @@
-import { execFileSync } from "node:child_process";
-import { createEnv } from "@t3-oss/env-core";
-import { railway } from "@t3-oss/env-core/presets-zod"
-import { z } from "zod";
+import { execFileSync } from 'node:child_process'
+import { createEnv } from '@t3-oss/env-core'
+import { railway } from '@t3-oss/env-core/presets-zod'
+import { z } from 'zod'
 
 function getDeploymentId(): string {
   try {
-    return execFileSync("git", ["describe", "--always", "--dirty", "--exclude", "*"], {
-      encoding: "utf8",
-      stdio: ["ignore", "pipe", "ignore"],
-      timeout: 1000,
-    }).trim() || "dev-unknown";
+    return (
+      execFileSync('git', ['describe', '--always', '--dirty', '--exclude', '*'], {
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+        timeout: 1000,
+      }).trim() || 'dev-unknown'
+    )
   } catch {
     // Production images may have neither Git nor repository history.
-    return "dev-unknown";
+    return 'dev-unknown'
   }
 }
 
@@ -21,17 +23,17 @@ export const env = createEnv({
   extends: [railway()],
   // Custom Keys
   server: {
-    NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
+    NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
     PORT: z.coerce.number().int().min(1).max(65535).default(4041),
     IDLE_TIMEOUT: z.coerce.number().default(10),
     DEPLOYMENT_ID: z.string().min(1).default(getDeploymentId),
     // Better Auth Config
     BETTER_AUTH_SECRET: z.string().min(32),
-    BETTER_AUTH_URL: z.url().default("https://justpets.localhost"),
-    OAUTH_PROXY_URL: z.url().default("https://alpha.justpets.app"),
+    BETTER_AUTH_URL: z.url().default('https://justpets.localhost'),
+    OAUTH_PROXY_URL: z.url().default('https://alpha.justpets.app'),
     OAUTH_PROXY_SECRET: z.string().min(1),
     // SSO Providers
-    APPLE_CLIENT_ID: z.string().min(1).default("app.justpets.service-id"),
+    APPLE_CLIENT_ID: z.string().min(1).default('app.justpets.service-id'),
     APPLE_TEAM_ID: z.string().min(1),
     APPLE_KEY_ID: z.string().min(1),
     APPLE_PRIVATE_KEY: z.string().min(1),
@@ -61,4 +63,4 @@ export const env = createEnv({
   isServer: true,
   // Allow us to skip e.g. in CI
   skipValidation: !!process.env.SKIP_VALIDATE_ENV,
-});
+})
