@@ -54,7 +54,7 @@ const nextConfig = (_phase: string): NextConfig => ({
 
   // version-skew protection
   // https://nextjs.org/docs/app/guides/self-hosting#version-skew
-  deploymentId: env.DEPLOYMENT_ID,
+  deploymentId: process.env.DEPLOYMENT_ID,
 
   experimental: {
     // forbidden (403), unautorized (401)...
