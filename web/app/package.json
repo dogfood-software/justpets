@@ -30,6 +30,7 @@
     "use-intl": "^4.15.1"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@tanstack/devtools-vite": "0.8.7",
     "@tanstack/router-cli": "^1.168.0",
     "@tanstack/router-plugin": "1.169.0",

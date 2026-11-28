@@ -24,6 +24,7 @@ export {
   Switch,
   TextArea,
   TextField,
+  Card,
   // props
   // functions
   toast,

@@ -78,6 +78,12 @@ const nextConfig = (_phase: string): NextConfig => ({
   },
   turbopack: {
     root: path.resolve(dirname, '../../'),
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
   },
 })
 

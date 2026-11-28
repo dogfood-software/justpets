@@ -186,8 +186,8 @@ export function createAuth(db: Database) {
       'justpets-parent://', // parent app schema
       'justpets-buisness://', // buisness app schema
       'justpets-travel://', // travel parent app schema
-      ...(process.env.NODE_ENV === 'development' // mobile app schemas in development
-        ? ['http://justpets.localhost', 'exp://', 'exp://**', 'exp://192.168.*.*:*/**']
+      ...(env.NODE_ENV === 'development' // mobile app schemas in development
+        ? ['https://justpets.localhost', 'exp://', 'exp://**', 'exp://192.168.*.*:*/**']
         : []),
     ],
 
@@ -205,7 +205,10 @@ export function createAuth(db: Database) {
       // sendVerificationOTP: (data) => mail.sendVerificationOTP(data),
       // }),
       // Power users who use Password Managers. One click sign in for them.
-      passkey(),
+      passkey({
+        rpID: env.NODE_ENV === 'development' ? 'justpets.localhost' : 'justpets.app',
+        rpName: 'JustPets',
+      }),
       // Internal user administration, mostly for impersonation during support incidents
       admin(),
       // Organizations are the core of our product. As we sell to Businesses.

@@ -1,1 +1,21 @@
-{}
+{
+  "site": {
+    "pages": {
+      "login": {
+        "back": "Back to homepage",
+        "title": "Welcome Pet Lovers",
+        "subtitle": "Use your existing accounts or e-mail to access all the JustPets features.",
+        "link": "Why we don't use Passwords?",
+        "sign-in-with": {
+          "google": "Sign in with Google",
+          "apple": "Sign in with Apple",
+          "facebook": "Sign in with Facebook",
+          "passkey": "Sign in with a Passkey"
+        },
+        "errors": {
+          "social-auth": "Sign in with {provider} failed. Please try again."
+        }
+      }
+    }
+  }
+}

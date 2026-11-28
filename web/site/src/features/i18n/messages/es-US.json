@@ -1,1 +1,21 @@
-{}
+{
+  "site": {
+    "pages": {
+      "login": {
+        "back": "Volver a la página de inicio",
+        "title": "Bienvenidos, amantes de las mascotas",
+        "subtitle": "Usa tus cuentas existentes o tu correo electrónico para acceder a todas las funciones de JustPets.",
+        "link": "¿Por qué no usamos contraseñas?",
+        "sign-in-with": {
+          "google": "Iniciar sesión con Google",
+          "apple": "Iniciar sesión con Apple",
+          "facebook": "Iniciar sesión con Facebook",
+          "passkey": "Iniciar sesión con Passkey"
+        },
+        "errors": {
+          "social-auth": "No se pudo iniciar sesión con {provider}. Inténtalo de nuevo."
+        }
+      }
+    }
+  }
+}

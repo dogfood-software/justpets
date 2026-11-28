@@ -10,8 +10,19 @@
 
 @plugin "@tailwindcss/typography";
 
+/* In theory allow for MPA transitions... these don't work in React yet */
 @view-transition {
   navigation: auto;
+}
+
+/* Reduced motion stuff */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
 }
 
 @theme {
