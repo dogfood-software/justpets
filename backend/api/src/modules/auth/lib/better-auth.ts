@@ -103,6 +103,7 @@ export function createAuth(db: Database) {
         // we use UUID identifiers... Makes joins simpler in the data model
         generateId: 'uuid',
       },
+      cookiePrefix: 'justpets',
       defaultCookieAttributes: {
         httpOnly: true,
         sameSite: 'lax',

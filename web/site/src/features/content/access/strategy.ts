@@ -49,7 +49,7 @@ const getBetterAuthSession = cache(async function getBetterAuthSession(): Promis
 
   // Skip the network hop when we don't need it
   if (
-    !cookies.has('justpets.session_token') && // browser cookie present
+    !cookies.has('__Secure-justpets.session_token') && // browser cookie present
     !headers.has('Authorization') // API Key/OAuth Token (MCP & Rest API)
   ) {
     return null
