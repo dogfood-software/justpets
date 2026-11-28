@@ -33,6 +33,9 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
       importMapFile: path.resolve(dirname, 'app/payload/admin/importMap.js'),
     },
+    components: {
+      beforeLogin: ['./features/content/components/before-login#BeforeLogin'],
+    },
   },
   collections: [Users, Media, Folders, Tags],
   editor: lexicalEditor(),

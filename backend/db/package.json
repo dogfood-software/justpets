@@ -8,11 +8,11 @@
     "./*": "./src/*.ts"
   },
   "scripts": {
+    "dev": "drizzle-kit studio",
     "build:migrations": "rm -rf dist && bun build ./src/migrate.ts --target=bun --minify-whitespace --minify-syntax --sourcemap --outdir ./dist && cp -R src/migrations dist/migrations",
     "test": "vitest run",
     "check": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
-    "db:studio": "drizzle-kit studio",
     "db:migrate": "drizzle-kit migrate",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

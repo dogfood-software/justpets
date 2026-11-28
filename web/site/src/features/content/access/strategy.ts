@@ -48,12 +48,12 @@ const getBetterAuthSession = cache(async function getBetterAuthSession(): Promis
   const baseUrl = env.API_SERVER_URL
 
   // Skip the network hop when we don't need it
-  if (
-    !cookies.has('__Secure-justpets.session_token') && // browser cookie present
-    !headers.has('Authorization') // API Key/OAuth Token (MCP & Rest API)
-  ) {
-    return null
-  }
+  // if (
+  //   !cookies.has('__Secure-justpets.session_token') && // browser cookie present
+  //   !headers.has('Authorization') // API Key/OAuth Token (MCP & Rest API)
+  // ) {
+  //   return null
+  // }
 
   // call the API over the local network which pulls the session from Redis/PostGres
   const response = await fetch(`${baseUrl}/api/auth/get-session`, {
@@ -139,7 +139,7 @@ async function upsertPayloadUserFromSession(
         userId: sessionUser.id,
       },
     },
-    { lean: true, new: true, upsert: true },
+    { lean: true, upsert: true, returnDocument: 'after' },
   )) as MongoUserDoc | null
 
   if (!doc) {
