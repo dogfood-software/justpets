@@ -37,6 +37,7 @@ COPY . .
 # Railway only exposes build-time variables declared in this stage.
 # The commit SHA supplies the deployment ID used by next.config.ts.
 ARG RAILWAY_GIT_COMMIT_SHA
+ENV RAILWAY_GIT_COMMIT_SHA=$RAILWAY_GIT_COMMIT_SHA
 
 RUN pnpm --filter @web/site build \
     && mkdir -p web/site/.next/standalone/web/site/public \
