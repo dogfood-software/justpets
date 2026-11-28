@@ -23,6 +23,9 @@ export function UIProviders({
   const forcedTheme = theme === 'system' ? undefined : theme
   useEffect(() => setZodLocale(locale), [locale])
 
+  const scriptsDisabled =
+    disableScripts || (process.env.NODE_ENV === 'development' && typeof window === 'undefined')
+
   return (
     <I18nProvider locale={locale}>
       <ThemeProvider
@@ -32,9 +35,7 @@ export function UIProviders({
         enableSystem={theme === 'system'}
         forcedTheme={forcedTheme}
         // prevent issues in NextJS 16+ when page is static.
-        scriptProps={
-          disableScripts || typeof window === 'undefined' ? { type: 'application/json' } : undefined
-        }
+        scriptProps={scriptsDisabled ? { type: 'application/json' } : undefined}
       >
         {children}
         <Toast.Provider placement="top" />
